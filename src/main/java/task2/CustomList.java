@@ -49,18 +49,21 @@ public class CustomList<E> implements List<E> {
             private int last = -1;
 
             public boolean hasNext() {
+                if (curEl == array.size())
+                    return false;
+                while (predicates.contains(array.get(curEl))) {
+                    ++curEl;
+                    if (curEl == array.size())
+                        return false;
+                }
                 return curEl < array.size();
             }
 
             public E next() {
                 if (curEl >= array.size())
                     throw new NoSuchElementException();
-                E e = array.get(curEl);
-                last = curEl++;
-                if (predicates.contains(e))
-                    return this.next();
-                else
-                    return e;
+
+                return array.get(last = curEl++);
             }
 
             public void remove() {
@@ -137,12 +140,12 @@ public class CustomList<E> implements List<E> {
     public static void main(String[] args) {
         HashSet<Integer> set = new HashSet<>();
         ArrayList<Integer> l = new ArrayList<>();
-        l.add(22);
-        l.add(1);
-        l.add(2);
-        l.add(3);
-        set.add(1);
-        set.add(2);
+        l.add(5);
+        l.add(6);
+        l.add(6);
+        l.add(7);
+        set.add(6);
+        set.add(7);
         List<Integer> list = new CustomList<>(l,set);
         boolean a = list.add(11);
         boolean b = list.add(2);
