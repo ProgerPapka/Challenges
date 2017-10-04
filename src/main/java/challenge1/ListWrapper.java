@@ -14,13 +14,13 @@ public class ListWrapper<T> {
         }
     }
 
-    public ListWrapper<T> map(Function<T,T> f){
-        List<T> l = new ArrayList<T>();
+    public <M> ListWrapper<M> map(Function<T,M> f){
+        List<M> l = new ArrayList<M>();
 
         for (T o:list){
             l.add(f.apply(o));
         }
-        return new ListWrapper<T>(l);
+        return new ListWrapper<M>(l);
     }
 
 
@@ -45,6 +45,12 @@ public class ListWrapper<T> {
 
         ListWrapper<Integer> lw = new ListWrapper<Integer>(l);
 
+        lw.map(new Function<Integer, String>() {
+            public String apply(Integer o) {
+                return "\""+o.toString()+"\"";
+            }
+        }).println();
+        System.out.println();
         lw.map(new Function<Integer,Integer>() {
             public Integer apply(Integer o) {
                 return o*3;
