@@ -2,6 +2,7 @@ package challenge1;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 public class ListWrapper<T> {
@@ -35,6 +36,16 @@ public class ListWrapper<T> {
         return new ListWrapper<T>(l);
     }
 
+    public T reduce(ReduceFunction<T> f){
+        Iterator<T> iterator = list.iterator();
+        T result = iterator.next();
+        while (iterator.hasNext()) {
+            result = f.apply(result, iterator.next());
+        }
+        return result;
+    }
+
+
     public ListWrapper(List<T> list) {
         this.list = list;
     }
@@ -61,7 +72,14 @@ public class ListWrapper<T> {
                 return o%2==0;
             }
         }).println();
-
+        System.out.println();
+        Integer qwerty = lw.reduce(new ReduceFunction<Integer>() {
+            @Override
+            public Integer apply(Integer o1, Integer o2) {
+                return o1 * o2;
+            }
+        });
+        System.out.println(qwerty);
 
     }
 
