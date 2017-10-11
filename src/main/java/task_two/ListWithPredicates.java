@@ -172,23 +172,4 @@ public class ListWithPredicates<E> implements List<E> {
         return array.subList(fromIndex, toIndex);
     }
 
-    public static void main(String[] args) {
-        HashSet<Integer> set = new HashSet<>();
-        ArrayList<Integer> l = new ArrayList<>();
-        l.add(5);
-        l.add(6);
-        l.add(6);
-        l.add(7);
-        set.add(6);
-        set.add(7);
-        List<Integer> list = new ListWithPredicates<>(l, set);
-        boolean a = list.add(11);
-        boolean b = list.add(2);
-        Iterator it = list.iterator();
-        it.next();
-        it.remove();
-        while (it.hasNext()) {
-            System.out.println(it.next());
-        }
-    }
 }
