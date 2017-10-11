@@ -8,7 +8,7 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
-            //Test1
+        //Test1
 
             /*HashSet<Integer> set = new HashSet<>();
             ArrayList<Integer> l = new ArrayList<>();
@@ -29,10 +29,9 @@ public class Main {
             }*/
 
 
+        //Test2
 
-            //Test2
-
-            HashSet<Integer> set = new HashSet<>();
+            /*HashSet<Integer> set = new HashSet<>();
             ArrayList<Integer> l = new ArrayList<>();
             ArrayList<Integer> qq = new ArrayList<>();
             {
@@ -59,10 +58,46 @@ public class Main {
             it = list.iterator();
             while (it.hasNext()) {
                     System.out.println(it.next());
-            }
+            }*/
 
 
-            //Test3
+        //Test3
+
+        HashSet<Integer> set = new HashSet<>();
+        ArrayList<Integer> l = new ArrayList<>();
+        {
+            l.add(1);
+            l.add(2);
+            l.add(3);
+            l.add(4);
+            set.add(1);
+            set.add(2);
+        }
+        List<Integer> list = new ListWithPredicates<>(l, set);
+        Iterator it = list.iterator();
+        while (it.hasNext()) {
+            System.out.println(it.next());
+        }
+        System.out.println();
+        {
+            list.add(0, 5); // add 5 to position 0
+            System.out.println("Would add 1?:  " + list.add(1)); // add 1
+            list.add(6); // add 6
+        }
+        System.out.println();
+        it = list.iterator();
+        while (it.hasNext()) {
+            System.out.println(it.next());
+        }
+        System.out.println();
+        it = list.iterator();
+        list.remove((Integer)5); //remove 5
+        System.out.println("Will remove list[0] = 1 ?:  " + list.remove((Integer) 1)); //remove 1
+        System.out.println("Will remove list[1] = 2 ?:  " + list.remove((Integer) 2)); //remove 1
+        while (it.hasNext()){
+            System.out.println(it.next());
+        }
+
 
     }
 
