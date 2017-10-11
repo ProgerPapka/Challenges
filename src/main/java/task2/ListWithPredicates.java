@@ -5,18 +5,18 @@ import challenge1.ReduceFunction;
 
 import java.util.*;
 
-public class CustomList<E> implements List<E> {
+public class ListWithPredicates<E> implements List<E> {
 
     private ArrayList<E> array;
     private Set<E> predicates;
 
-    public CustomList(ArrayList<E> array, Set<E> predicates) {
+    public ListWithPredicates(ArrayList<E> array, Set<E> predicates) {
         this.array = array;
         this.predicates = predicates;
     }
 
 
-    public <M> CustomList<M> map(Function<E, M> fForArray, Function<E, M> fFroPredicate) {
+    public <M> ListWithPredicates<M> map(Function<E, M> fForArray, Function<E, M> fFroPredicate) {
         ArrayList<M> l = new ArrayList<M>();
         Set<M> p = new HashSet<>();
         for (E o : array) {
@@ -25,17 +25,17 @@ public class CustomList<E> implements List<E> {
         for (E o : predicates) {
             p.add(fFroPredicate.apply(o));
         }
-        return new CustomList<M>(l, p);
+        return new ListWithPredicates<M>(l, p);
     }
 
-    public CustomList<E> filter(Function<E, Boolean> f) {
+    public ListWithPredicates<E> filter(Function<E, Boolean> f) {
         ArrayList<E> l = new ArrayList<E>();
         for (E o : array) {
             if (f.apply(o)) {
                 l.add(o);
             }
         }
-        return new CustomList<E>(l, predicates);
+        return new ListWithPredicates<E>(l, predicates);
     }
 
     public E reduce(ReduceFunction<E> f) {
@@ -179,7 +179,7 @@ public class CustomList<E> implements List<E> {
         l.add(7);
         set.add(6);
         set.add(7);
-        List<Integer> list = new CustomList<>(l, set);
+        List<Integer> list = new ListWithPredicates<>(l, set);
         boolean a = list.add(11);
         boolean b = list.add(2);
         Iterator it = list.iterator();
