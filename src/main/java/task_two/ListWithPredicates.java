@@ -1,7 +1,7 @@
-package task2;
+package task_two;
 
-import challenge1.Function;
-import challenge1.ReduceFunction;
+import challenge_one.Function;
+import challenge_one.ReduceFunction;
 
 import java.util.*;
 

@@ -1,4 +1,4 @@
-package challenge1;
+package challenge_one;
 
 import java.util.ArrayList;
 import java.util.Arrays;

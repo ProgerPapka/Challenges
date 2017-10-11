@@ -1,4 +1,4 @@
-package challenge1;
+package challenge_one;
 
 public interface ReduceFunction<T> {
 
