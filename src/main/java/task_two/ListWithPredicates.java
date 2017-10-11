@@ -82,8 +82,9 @@ public class ListWithPredicates<E> implements List<E> {
             private int last = -1;
 
             public boolean hasNext() {
-                if (curEl == array.size())
+                if (curEl == array.size()) {
                     return false;
+                }
                 while (predicates.contains(array.get(curEl))) {
                     ++curEl;
                     if (curEl == array.size())
@@ -93,15 +94,16 @@ public class ListWithPredicates<E> implements List<E> {
             }
 
             public E next() {
-                if (curEl >= array.size())
+                if (curEl >= array.size()) {
                     throw new NoSuchElementException();
-
+                }
                 return array.get(last = curEl++);
             }
 
             public void remove() {
-                if (last == -1)
+                if (last == -1) {
                     throw new IllegalStateException();
+                }
                 array.remove(last);
                 curEl--;
                 last--;
@@ -139,7 +141,7 @@ public class ListWithPredicates<E> implements List<E> {
     }
 
     public E set(int index, E element) {
-        return set(index, element);
+        return array.set(index, element);
     }
 
     public void add(int index, E element) {
