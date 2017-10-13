@@ -1,12 +1,12 @@
-package task_four.annotation;
+package task_four.first.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.FIELD)
-public @interface InjectCache {
+public @interface CacheDeclaration {
     String name();
 }

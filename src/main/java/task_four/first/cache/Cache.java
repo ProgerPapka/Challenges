@@ -1,4 +1,4 @@
-package task_four.cache;
+package task_four.first.cache;
 
 public interface Cache<Integer, String> {
     void put(Integer key, String value);
