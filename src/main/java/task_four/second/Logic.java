@@ -221,7 +221,8 @@ public class Logic {
                                 });
                     }
                 });
-        list.stream().distinct().forEach(author -> System.out.println(author.getName()));
+        list.stream().distinct().forEach(author ->
+                System.out.println(author.getName()));
     }
 
 
