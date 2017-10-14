@@ -233,7 +233,7 @@ public class Logic {
     }
 
     private void listOfAuthorsWithCoAuthors() {
-        List<Author> list = new ArrayList<>();
+        /*List<Author> list = new ArrayList<>();
         books
                 .stream()
                 .forEach(book -> {
@@ -246,7 +246,15 @@ public class Logic {
                     }
                 });
         list.stream().distinct().forEach(author ->
-                System.out.println(author.getName()));
+                System.out.println(author.getName()));*/
+
+        books
+                .stream()
+                .filter(book -> book.getAuthors().size()>1)
+                .flatMap(book -> book.getAuthors().stream())
+                .collect(Collectors.toSet())
+                .stream()
+                .forEach(author -> System.out.println(author.getName()));
     }
 
 
@@ -260,7 +268,7 @@ public class Logic {
                 this.author = author;
             }
         }
-        List<A> list = new ArrayList<>();
+        /*List<A> list = new ArrayList<>();
         books
                 .stream()
                 .forEach(book -> {
@@ -278,7 +286,17 @@ public class Logic {
                     as.forEach(a -> System.out.printf(a.name + "; "));
                     System.out.println();
                 }
+                ));*/
+        books
+                .stream()
+                .flatMap(book -> book.getAuthors().stream()
+                        .map(author -> new A(book.getName(),author)))
+                .collect(Collectors.groupingBy(o -> o.author))
+                .forEach(((author, as) -> {
+                    System.out.printf(author.getName() + ": ");
+                    as.forEach(a -> System.out.printf(a.name + "; "));
+                    System.out.println();
+                }
                 ));
-
     }
 }
