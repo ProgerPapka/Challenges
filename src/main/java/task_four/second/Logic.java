@@ -14,23 +14,23 @@ public class Logic {
         initAuthorsAndBooks();
 
         System.out.println("Average year of authors:");
-        averageAuthorYear(list);
+        averageAuthorYear();
         System.out.println();
 
         System.out.println("Sorted author by age:");
-        sortAuthorByAgeAscending(list);
+        sortAuthorByAgeAscending();
         System.out.println();
 
         System.out.println("List pensioners:");
-        listOfAuthorsOfPensioners(list);
+        listOfAuthorsOfPensioners();
         System.out.println();
 
         System.out.println("List books with it of age:");
-        listOfBooksWithAge(books);
+        listOfBooksWithAge();
         System.out.println();
     }
 
-    private void initAuthorsAndBooks(){
+    private void initAuthorsAndBooks() {
         list = new ArrayList<>();
         {
             list.add(new Author("James",
@@ -123,7 +123,7 @@ public class Logic {
                 LocalDate.of(2006, 11, 16), list6));
     }
 
-    private void averageAuthorYear(List<Author> list) {
+    private void averageAuthorYear() {
         list
                 .stream()
                 .mapToInt(value -> {
@@ -140,7 +140,7 @@ public class Logic {
         });
     }
 
-    private void sortAuthorByAgeAscending(List<Author> list) {
+    private void sortAuthorByAgeAscending() {
         list
                 .stream()
                 .sorted((o1, o2) -> {
@@ -168,7 +168,7 @@ public class Logic {
                 }).forEach(s -> System.out.println(s.getName()));
     }
 
-    private void listOfAuthorsOfPensioners(List<Author> list) {
+    private void listOfAuthorsOfPensioners() {
         list
                 .stream()
                 .forEach(author -> {
@@ -188,8 +188,8 @@ public class Logic {
                 });
     }
 
-    private void listOfBooksWithAge(List<Book> list) {
-        list
+    private void listOfBooksWithAge() {
+        books
                 .stream()
                 .forEach(book -> {
                     int age = LocalDate.now().getYear() -
