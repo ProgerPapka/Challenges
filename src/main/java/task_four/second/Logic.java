@@ -28,6 +28,10 @@ public class Logic {
         System.out.println("List books with it of age:");
         listOfBooksWithAge();
         System.out.println();
+
+        System.out.println("List co-authors:");
+        listOfAuthorsWithCoAuthors();
+        System.out.println();
     }
 
     private void initAuthorsAndBooks() {
@@ -80,6 +84,7 @@ public class Logic {
         List<Author> list4 = new ArrayList<>();
         List<Author> list5 = new ArrayList<>();
         List<Author> list6 = new ArrayList<>();
+        List<Author> list7 = new ArrayList<>();
         {
             list1.add(list.get(5));
             list1.add(list.get(6));
@@ -107,6 +112,8 @@ public class Logic {
             list6.add(list.get(9));
             list6.add(list.get(10));
             list6.add(list.get(2));
+        }{
+            list7.add(list.get(4));
         }
         books = new ArrayList<>();
         books.add(new Book("Three of a fool",
@@ -121,6 +128,8 @@ public class Logic {
                 LocalDate.of(1960, 1, 1), list5));
         books.add(new Book("Ellion",
                 LocalDate.of(2006, 11, 16), list6));
+        books.add(new Book("My memories",
+                LocalDate.of(1888, 8, 8), list7));
     }
 
     private void averageAuthorYear() {
@@ -198,5 +207,23 @@ public class Logic {
                             ", Age: " + age);
                 });
     }
+
+    private void listOfAuthorsWithCoAuthors(){
+        List<Author> list = new ArrayList<>();
+        books
+                .stream()
+                .forEach(book -> {
+                    if(book.getAuthors().size()>1){
+                        book.getAuthors()
+                                .stream()
+                                .forEach(author -> {
+                                    list.add(author);
+                                });
+                    }
+                });
+        list.stream().distinct().forEach(author -> System.out.println(author.getName()));
+    }
+
+
 
 }
