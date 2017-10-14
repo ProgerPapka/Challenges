@@ -6,8 +6,8 @@ import java.util.List;
 
 public class Logic {
 
-    List<Author> list;
-    List<Book> books;
+    private List<Author> list;
+    private List<Book> books;
 
 
     public void logic() {
