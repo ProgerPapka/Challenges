@@ -1,9 +1,6 @@
 package task_five.synchronize;
 
-import task_five.synchronize.Bank;
-import task_five.synchronize.BankUser;
-
-import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Test {
@@ -17,11 +14,12 @@ public class Test {
         Runnable user4 = new BankUser(bank,"Sue");
         Runnable user5 = new BankUser(bank,"Anna");
 
-        Executor executor = Executors.newFixedThreadPool(5);
+        ExecutorService executor = Executors.newFixedThreadPool(5);
         executor.execute(user1);
         executor.execute(user2);
         executor.execute(user3);
         executor.execute(user4);
         executor.execute(user5);
+        executor.shutdown();
     }
 }
