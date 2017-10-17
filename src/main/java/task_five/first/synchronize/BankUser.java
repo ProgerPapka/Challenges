@@ -1,6 +1,6 @@
-package task_five.concurrent;
+package task_five.first.synchronize;
 
-import task_five.exception.LackOfMoneyException;
+import task_five.first.exception.LackOfMoneyException;
 
 public class BankUser implements Runnable {
 
@@ -18,14 +18,15 @@ public class BankUser implements Runnable {
 
     @Override
     public void run() {
-        try {
-            myBank.getSemaphore().acquire();
-            while (myBank.hasMoney()) {
-                myBank.getMoney(50);
+        synchronized (myBank) {
+            try {
+                while (myBank.hasMoney()) {
+                    myBank.getMoney(50);
+                }
+
+            } catch (LackOfMoneyException e) {
+                System.out.println(e.getMessage());
             }
-            myBank.getSemaphore().release();
-        } catch (LackOfMoneyException | InterruptedException e) {
-            System.out.println(e.getMessage());
         }
         System.out.println(name + " took the money." +
                 "Thread finished work.");

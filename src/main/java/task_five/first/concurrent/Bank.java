@@ -1,6 +1,6 @@
-package task_five.concurrent;
+package task_five.first.concurrent;
 
-import task_five.exception.LackOfMoneyException;
+import task_five.first.exception.LackOfMoneyException;
 
 import java.util.concurrent.Semaphore;
 

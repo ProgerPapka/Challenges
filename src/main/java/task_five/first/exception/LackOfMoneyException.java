@@ -1,4 +1,4 @@
-package task_five.exception;
+package task_five.first.exception;
 
 public class LackOfMoneyException extends Exception {
 

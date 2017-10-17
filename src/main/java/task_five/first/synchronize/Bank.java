@@ -1,6 +1,6 @@
-package task_five.synchronize;
+package task_five.first.synchronize;
 
-import task_five.exception.LackOfMoneyException;
+import task_five.first.exception.LackOfMoneyException;
 
 public class Bank {
 
