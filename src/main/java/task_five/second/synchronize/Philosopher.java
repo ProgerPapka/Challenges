@@ -26,6 +26,7 @@ public class Philosopher implements Runnable {
 
     private void thinking() throws InterruptedException {
         System.out.println(name + " think:" + (++countThink));
+        Thread.sleep(100);
     }
 
     private int period(){
