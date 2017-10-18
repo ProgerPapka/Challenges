@@ -7,13 +7,13 @@ import java.util.Map;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
-public class Logic {
+public class Test {
 
     private List<Author> list;
     private List<Book> books;
 
 
-    public void logic() {
+    public void runTest() {
         initAuthorsAndBooks();
 
         System.out.println("Average year of authors:");

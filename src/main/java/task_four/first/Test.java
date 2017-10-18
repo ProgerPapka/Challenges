@@ -6,9 +6,9 @@ import task_four.first.bean.TelephoneBean;
 import task_four.first.pojo.Data;
 import task_four.first.pojo.Telephone;
 
-public class Logic {
+public class Test {
 
-    public void logic() {
+    public void runTest() {
         CacheInjector injector = new CacheInjector();
 
         DataBean dataBean = new DataBean();
