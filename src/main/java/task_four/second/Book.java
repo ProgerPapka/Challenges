@@ -1,7 +1,6 @@
 package task_four.second;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Book {
@@ -14,16 +13,6 @@ public class Book {
         this.name = name;
         this.releaseDate = releaseDate;
         this.authors = authors;
-    }
-
-    public Book(String name, LocalDate releaseDate) {
-        this.name = name;
-        this.releaseDate = releaseDate;
-        authors = new ArrayList<>();
-    }
-
-    public void addAuthor(Author author){
-        authors.add(author);
     }
 
     public String getName() {
