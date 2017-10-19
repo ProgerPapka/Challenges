@@ -2,6 +2,8 @@ package task_four.second;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -86,59 +88,43 @@ public class Test {
                     LocalDate.of(1992, 7, 30),
                     Author.Sex.FEMALE));
         }
-        List<Author> list1 = new ArrayList<>();
-        List<Author> list2 = new ArrayList<>();
-        List<Author> list3 = new ArrayList<>();
-        List<Author> list4 = new ArrayList<>();
-        List<Author> list5 = new ArrayList<>();
-        List<Author> list6 = new ArrayList<>();
-        List<Author> list7 = new ArrayList<>();
-        {
-            list1.add(authors.get(5));
-            list1.add(authors.get(6));
-        }
-        {
-            list2.add(authors.get(7));
-            list2.add(authors.get(8));
-        }
-        {
-            list3.add(authors.get(9));
-            list3.add(authors.get(10));
-        }
-        {
-            list4.add(authors.get(1));
-            list4.add(authors.get(5));
-            list4.add(authors.get(6));
-        }
-        {
-            list5.add(authors.get(1));
-            list5.add(authors.get(3));
-            list5.add(authors.get(6));
-        }
-        {
-            list6.add(authors.get(0));
-            list6.add(authors.get(9));
-            list6.add(authors.get(10));
-            list6.add(authors.get(2));
-        }
-        {
-            list7.add(authors.get(4));
-        }
+        List<Author> listAuthorsBookThreeOfAFool =
+                Arrays.asList(authors.get(5),authors.get(6));
+        List<Author> listAuthorsBookTheGameOfTheGods =
+                Arrays.asList(authors.get(7),authors.get(8));
+        List<Author> listAuthorsBookLifeStealer =
+                Arrays.asList(authors.get(9),authors.get(10));
+        List<Author> listAuthorsBookSecretTime =
+                Arrays.asList(authors.get(1),authors.get(5),authors.get(6));
+        List<Author> listAuthorsBooksGalaxy =
+                Arrays.asList(authors.get(1),authors.get(3),authors.get(6));
+        List<Author> listAuthorsBookEllion =
+                Arrays.asList(authors.get(0),authors.get(9),
+                        authors.get(10),authors.get(2));
+        List<Author> listAuthorsBookMyMemories =
+                Collections.singletonList(authors.get(4));
         books = new ArrayList<>();
         books.add(new Book("Three of a fool",
-                LocalDate.of(1925, 1, 1), list1));
+                LocalDate.of(1925, 1, 1),
+                listAuthorsBookThreeOfAFool));
         books.add(new Book("The game of the gods",
-                LocalDate.of(1756, 3, 12), list2));
+                LocalDate.of(1756, 3, 12),
+                listAuthorsBookTheGameOfTheGods));
         books.add(new Book("Life Stealer",
-                LocalDate.of(2002, 2, 22), list3));
+                LocalDate.of(2002, 2, 22),
+                listAuthorsBookLifeStealer));
         books.add(new Book("Secret time",
-                LocalDate.of(1955, 4, 1), list4));
+                LocalDate.of(1955, 4, 1),
+                listAuthorsBookSecretTime));
         books.add(new Book("Galaxy",
-                LocalDate.of(1960, 1, 1), list5));
+                LocalDate.of(1960, 1, 1),
+                listAuthorsBooksGalaxy));
         books.add(new Book("Ellion",
-                LocalDate.of(2006, 11, 16), list6));
+                LocalDate.of(2006, 11, 16),
+                listAuthorsBookEllion));
         books.add(new Book("My memories",
-                LocalDate.of(1888, 8, 8), list7));
+                LocalDate.of(1888, 8, 8),
+                listAuthorsBookMyMemories));
     }
 
     private void printBooksWithAuthors() {
