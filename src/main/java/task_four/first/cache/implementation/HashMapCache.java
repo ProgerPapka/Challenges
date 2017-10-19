@@ -1,10 +1,12 @@
-package task_four.first.cache;
+package task_four.first.cache.implementation;
+
 
 import task_four.first.annotation.CacheDeclaration;
+import task_four.first.cache.Cache;
 
 import java.util.*;
 
-@CacheDeclaration(name = "HashMapCache")
+@CacheDeclaration(name = "MapCache")
 public class HashMapCache implements Cache<Integer, String> {
 
     private Map<Integer, String> map = new HashMap<>();

@@ -1,11 +1,13 @@
-package task_four.first.cache;
+package task_four.first.cache.implementation;
+
 
 import task_four.first.annotation.CacheDeclaration;
+import task_four.first.cache.Cache;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@CacheDeclaration(name = "ArrayListCache")
+@CacheDeclaration(name = "ListCache")
 public class ArrayListCache implements Cache<Integer, String> {
 
     private List<Item> list = new ArrayList<>();
