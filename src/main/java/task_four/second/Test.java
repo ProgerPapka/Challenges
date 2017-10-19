@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 public class Test {
 
-    private List<Author> list;
+    private List<Author> authors;
     private List<Book> books;
 
 
@@ -43,46 +43,46 @@ public class Test {
     }
 
     private void initAuthorsAndBooks() {
-        list = new ArrayList<>();
+        authors = new ArrayList<>();
         {
-            list.add(new Author("James",
+            authors.add(new Author("James",
                     LocalDate.of(1995, 8, 12),
                     Author.Sex.MALE));
-            list.add(new Author("Sue",
+            authors.add(new Author("Sue",
                     LocalDate.of(1940, 7, 11),
                     LocalDate.of(2002, 1, 1),
                     Author.Sex.FEMALE));
-            list.add(new Author("Hank",
+            authors.add(new Author("Hank",
                     LocalDate.of(1980, 2, 28),
                     Author.Sex.MALE));
-            list.add(new Author("Anna",
+            authors.add(new Author("Anna",
                     LocalDate.of(1911, 3, 13),
                     LocalDate.of(1988, 11, 22),
                     Author.Sex.FEMALE));
-            list.add(new Author("Harry",
+            authors.add(new Author("Harry",
                     LocalDate.of(1807, 3, 13),
                     LocalDate.of(1895, 11, 22),
                     Author.Sex.MALE));
-            list.add(new Author("Sara",
+            authors.add(new Author("Sara",
                     LocalDate.of(1900, 7, 14),
                     LocalDate.of(1985, 5, 15),
                     Author.Sex.FEMALE));
-            list.add(new Author("Mike",
+            authors.add(new Author("Mike",
                     LocalDate.of(1895, 8, 21),
                     LocalDate.of(1967, 6, 18),
                     Author.Sex.MALE));
-            list.add(new Author("David",
+            authors.add(new Author("David",
                     LocalDate.of(1703, 11, 15),
                     LocalDate.of(1788, 12, 13),
                     Author.Sex.MALE));
-            list.add(new Author("Mariya",
+            authors.add(new Author("Mariya",
                     LocalDate.of(1699, 7, 11),
                     LocalDate.of(1777, 1, 5),
                     Author.Sex.FEMALE));
-            list.add(new Author("Charlotte",
+            authors.add(new Author("Charlotte",
                     LocalDate.of(1995, 12, 11),
                     Author.Sex.MALE));
-            list.add(new Author("Emma",
+            authors.add(new Author("Emma",
                     LocalDate.of(1992, 7, 30),
                     Author.Sex.FEMALE));
         }
@@ -94,35 +94,35 @@ public class Test {
         List<Author> list6 = new ArrayList<>();
         List<Author> list7 = new ArrayList<>();
         {
-            list1.add(list.get(5));
-            list1.add(list.get(6));
+            list1.add(authors.get(5));
+            list1.add(authors.get(6));
         }
         {
-            list2.add(list.get(7));
-            list2.add(list.get(8));
+            list2.add(authors.get(7));
+            list2.add(authors.get(8));
         }
         {
-            list3.add(list.get(9));
-            list3.add(list.get(10));
+            list3.add(authors.get(9));
+            list3.add(authors.get(10));
         }
         {
-            list4.add(list.get(1));
-            list4.add(list.get(5));
-            list4.add(list.get(6));
+            list4.add(authors.get(1));
+            list4.add(authors.get(5));
+            list4.add(authors.get(6));
         }
         {
-            list5.add(list.get(1));
-            list5.add(list.get(3));
-            list5.add(list.get(6));
+            list5.add(authors.get(1));
+            list5.add(authors.get(3));
+            list5.add(authors.get(6));
         }
         {
-            list6.add(list.get(0));
-            list6.add(list.get(9));
-            list6.add(list.get(10));
-            list6.add(list.get(2));
+            list6.add(authors.get(0));
+            list6.add(authors.get(9));
+            list6.add(authors.get(10));
+            list6.add(authors.get(2));
         }
         {
-            list7.add(list.get(4));
+            list7.add(authors.get(4));
         }
         books = new ArrayList<>();
         books.add(new Book("Three of a fool",
@@ -155,7 +155,7 @@ public class Test {
     }
 
     private void averageAuthorYear() {
-        list
+        authors
                 .stream()
                 .mapToInt(value -> {
                     if (value.isDead()) {
@@ -172,7 +172,7 @@ public class Test {
     }
 
     private void sortAuthorByAgeAscending() {
-        list
+        authors
                 .stream()
                 .sorted((o1, o2) -> {
                     int age1, age2;
@@ -200,7 +200,7 @@ public class Test {
     }
 
     private void listOfAuthorsOfPensioners() {
-        list
+        authors
                 .stream()
                 .forEach(author -> {
                     int age;
@@ -231,7 +231,7 @@ public class Test {
     }
 
     private void listOfAuthorsWithCoAuthors() {
-        /*List<Author> list = new ArrayList<>();
+        /*List<Author> authors = new ArrayList<>();
         books
                 .stream()
                 .forEach(book -> {
@@ -239,11 +239,11 @@ public class Test {
                         book.getAuthors()
                                 .stream()
                                 .forEach(author -> {
-                                    list.add(author);
+                                    authors.add(author);
                                 });
                     }
                 });
-        list.stream().distinct().forEach(author ->
+        authors.stream().distinct().forEach(author ->
                 System.out.println(author.getName()));*/
 
         books
@@ -266,17 +266,17 @@ public class Test {
                 this.author = author;
             }
         }
-        /*List<A> list = new ArrayList<>();
+        /*List<A> authors = new ArrayList<>();
         books
                 .stream()
                 .forEach(book -> {
                     book.getAuthors()
                             .stream()
                             .forEach(author -> {
-                                list.add(new A(book.getName(), author));
+                                authors.add(new A(book.getName(), author));
                             });
                 });
-        list
+        authors
                 .stream()
                 .collect(Collectors.groupingBy(o -> o.author))
                 .forEach(((author, as) -> {
