@@ -3,8 +3,6 @@ package task_four.second;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class Test {
@@ -160,7 +158,7 @@ public class Test {
         list
                 .stream()
                 .mapToInt(value -> {
-                    if (value.isDeath()) {
+                    if (value.isDead()) {
                         return value.getDateOfDeath().getYear() -
                                 value.getDateOfBirth().getYear();
                     } else {
@@ -178,14 +176,14 @@ public class Test {
                 .stream()
                 .sorted((o1, o2) -> {
                     int age1, age2;
-                    if (o1.isDeath()) {
+                    if (o1.isDead()) {
                         age1 = o1.getDateOfDeath().getYear() -
                                 o1.getDateOfBirth().getYear();
                     } else {
                         age1 = LocalDate.now().getYear() -
                                 o1.getDateOfBirth().getYear();
                     }
-                    if (o2.isDeath()) {
+                    if (o2.isDead()) {
                         age2 = o2.getDateOfDeath().getYear() -
                                 o2.getDateOfBirth().getYear();
                     } else {
@@ -206,7 +204,7 @@ public class Test {
                 .stream()
                 .forEach(author -> {
                     int age;
-                    if (author.isDeath()) {
+                    if (author.isDead()) {
                         age = author.getDateOfDeath().getYear() -
                                 author.getDateOfBirth().getYear();
                     } else {
