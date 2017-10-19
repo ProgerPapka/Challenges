@@ -1,11 +1,7 @@
 package task_four.second;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.*;
 
 public class Test {
 
@@ -15,33 +11,45 @@ public class Test {
 
     public void runTest() {
         initAuthorsAndBooks();
+        StreamChallenge streamChallenge = new StreamChallenge();
 
         System.out.println("Average year of authors:");
-        averageAuthorYear();
+        System.out.println(streamChallenge.averageAuthorYear(authors));
         System.out.println();
 
         System.out.println("Sorted author by age:");
-        sortAuthorByAgeAscending();
+        streamChallenge.sortAuthorByAgeAscending(authors);
+        authors.forEach(author -> System.out.println(author.getName()));
         System.out.println();
 
         System.out.println("List pensioners:");
-        listOfAuthorsOfPensioners();
-        System.out.println();
-
-        System.out.println("List books with it of age:");
-        listOfBooksWithAge();
+        List<Author> pensioners = streamChallenge
+                .listOfAuthorsOfPensioners(authors);
+        pensioners.forEach(author -> System.out.println(author.getName()));
         System.out.println();
 
         System.out.println("All books:");
-        printBooksWithAuthors();
+        streamChallenge.printBooksWithAuthors(books);
+        System.out.println();
+
+        System.out.println("List books with it of age:");
+        Map<String,Integer> map = streamChallenge.listOfBooksWithAge(books);
+        map.forEach((n,a) -> System.out.println("Name: " + n + " Age: " + a));
         System.out.println();
 
         System.out.println("List co-authors:");
-        listOfAuthorsWithCoAuthors();
+        Set<Author> authors = streamChallenge.listOfAuthorsWithCoAuthors(books);
+        authors.forEach(author -> System.out.println(author.getName()));
         System.out.println();
 
         System.out.println("List author an her books:");
-        listAuthorAndBooks();
+        Map<Author,List<StreamChallenge.Wrapper>> mapWrapper =
+                streamChallenge.listAuthorAndBooks(books);
+        mapWrapper.forEach((author, wrappers) -> {
+            System.out.printf(author.getName() + ": ");
+            wrappers.forEach(wrapper -> System.out.printf(wrapper.getName() + "; "));
+            System.out.println();
+        });
     }
 
     private void initAuthorsAndBooks() {
@@ -127,160 +135,4 @@ public class Test {
                 listAuthorsBookMyMemories));
     }
 
-    private void printBooksWithAuthors() {
-        books
-                .stream()
-                .forEach(book -> {
-                    System.out.print("Book: " + book.getName() +
-                            " Authors: ");
-                    List<Author> list = book.getAuthors();
-                    list.stream().forEach(s ->
-                            System.out.print(s.getName() + " "));
-                    System.out.println();
-                });
-    }
-
-    private void averageAuthorYear() {
-        authors
-                .stream()
-                .mapToInt(value -> {
-                    if (value.isDead()) {
-                        return value.getDateOfDeath().getYear() -
-                                value.getDateOfBirth().getYear();
-                    } else {
-                        return LocalDate.now().getYear() -
-                                value.getDateOfBirth().getYear();
-                    }
-                }).average().ifPresent(s ->
-        {
-            System.out.println(Math.round(s));
-        });
-    }
-
-    private void sortAuthorByAgeAscending() {
-        authors
-                .stream()
-                .sorted((o1, o2) -> {
-                    int age1, age2;
-                    if (o1.isDead()) {
-                        age1 = o1.getDateOfDeath().getYear() -
-                                o1.getDateOfBirth().getYear();
-                    } else {
-                        age1 = LocalDate.now().getYear() -
-                                o1.getDateOfBirth().getYear();
-                    }
-                    if (o2.isDead()) {
-                        age2 = o2.getDateOfDeath().getYear() -
-                                o2.getDateOfBirth().getYear();
-                    } else {
-                        age2 = LocalDate.now().getYear() -
-                                o2.getDateOfBirth().getYear();
-                    }
-                    if (age1 > age2) {
-                        return 1;
-                    } else {
-                        return -1;
-                    }
-
-                }).forEach(s -> System.out.println(s.getName()));
-    }
-
-    private void listOfAuthorsOfPensioners() {
-        authors
-                .stream()
-                .forEach(author -> {
-                    int age;
-                    if (author.isDead()) {
-                        age = author.getDateOfDeath().getYear() -
-                                author.getDateOfBirth().getYear();
-                    } else {
-                        age = LocalDate.now().getYear() -
-                                author.getDateOfBirth().getYear();
-                    }
-                    Author.Sex sex = author.getSex();
-                    if ((sex == Author.Sex.MALE && age > 65) ||
-                            (sex == Author.Sex.FEMALE && age > 63)) {
-                        System.out.println(author.getName());
-                    }
-                });
-    }
-
-    private void listOfBooksWithAge() {
-        books
-                .stream()
-                .forEach(book -> {
-                    int age = LocalDate.now().getYear() -
-                            book.getReleaseDate().getYear();
-                    System.out.println("Name: " + book.getName() +
-                            " Age: " + age);
-                });
-    }
-
-    private void listOfAuthorsWithCoAuthors() {
-        /*List<Author> authors = new ArrayList<>();
-        books
-                .stream()
-                .forEach(book -> {
-                    if (book.getAuthors().size() > 1) {
-                        book.getAuthors()
-                                .stream()
-                                .forEach(author -> {
-                                    authors.add(author);
-                                });
-                    }
-                });
-        authors.stream().distinct().forEach(author ->
-                System.out.println(author.getName()));*/
-
-        books
-                .stream()
-                .filter(book -> book.getAuthors().size()>1)
-                .flatMap(book -> book.getAuthors().stream())
-                .collect(Collectors.toSet())
-                .stream()
-                .forEach(author -> System.out.println(author.getName()));
-    }
-
-
-    private void listAuthorAndBooks() {
-        class A {
-            String name;
-            Author author;
-
-            public A(String name, Author author) {
-                this.name = name;
-                this.author = author;
-            }
-        }
-        /*List<A> authors = new ArrayList<>();
-        books
-                .stream()
-                .forEach(book -> {
-                    book.getAuthors()
-                            .stream()
-                            .forEach(author -> {
-                                authors.add(new A(book.getName(), author));
-                            });
-                });
-        authors
-                .stream()
-                .collect(Collectors.groupingBy(o -> o.author))
-                .forEach(((author, as) -> {
-                    System.out.printf(author.getName() + ": ");
-                    as.forEach(a -> System.out.printf(a.name + "; "));
-                    System.out.println();
-                }
-                ));*/
-        books
-                .stream()
-                .flatMap(book -> book.getAuthors().stream()
-                        .map(author -> new A(book.getName(),author)))
-                .collect(Collectors.groupingBy(o -> o.author))
-                .forEach(((author, as) -> {
-                    System.out.printf(author.getName() + ": ");
-                    as.forEach(a -> System.out.printf(a.name + "; "));
-                    System.out.println();
-                }
-                ));
-    }
 }
