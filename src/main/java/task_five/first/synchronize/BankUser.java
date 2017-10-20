@@ -18,18 +18,15 @@ public class BankUser implements Runnable {
 
     @Override
     public void run() {
+        try {
             while (true) {
                 synchronized (myBank) {
-                    try {
-                        if (myBank.hasMoney()) {
-                            System.out.println("Thread " + Thread.currentThread().getName() +
-                            " want get 50 money.");
-                            myBank.getMoney(50);
-                        } else {
-                            break;
-                        }
-                    } catch (LackOfMoneyException e) {
-                        System.out.println(e.getMessage());
+                    if (myBank.hasMoney()) {
+                        System.out.println("Thread " + Thread.currentThread().getName() +
+                                " want get 50 money.");
+                        myBank.getMoney(50);
+                    } else {
+                        break;
                     }
                     try {
                         Thread.sleep(50);
@@ -38,6 +35,9 @@ public class BankUser implements Runnable {
                     }
                 }
             }
+        } catch (LackOfMoneyException e) {
+            System.out.println(e.getMessage());
+        }
         System.out.println(name + " took the money." +
                 "Thread finished work.");
     }

@@ -19,12 +19,18 @@ public class BankUser implements Runnable {
     @Override
     public void run() {
         try {
-            myBank.getSemaphore().acquire();
-            while (myBank.hasMoney()) {
-                myBank.getMoney(50);
+            while (true) {
+                myBank.getSemaphore().acquire();
+                if(myBank.hasMoney()) {
+                    myBank.getMoney(50);
+                } else {
+                    myBank.getSemaphore().release();
+                    break;
+                }
+                myBank.getSemaphore().release();
             }
-            myBank.getSemaphore().release();
         } catch (LackOfMoneyException | InterruptedException e) {
+            myBank.getSemaphore().release();
             System.out.println(e.getMessage());
         }
         System.out.println(name + " took the money." +
