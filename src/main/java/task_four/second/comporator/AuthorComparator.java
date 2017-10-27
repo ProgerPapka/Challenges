@@ -1,6 +1,6 @@
 package task_four.second.comporator;
 
-import task_four.second.Author;
+import task_four.second.domain.Author;
 
 import java.time.LocalDate;
 import java.time.Period;

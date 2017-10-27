@@ -1,19 +1,30 @@
-package task_four.second;
+package task_four.second.domain;
 
 import task_four.second.exception.OperationDontPossibleException;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Author {
+public class Author implements Serializable{
 
     private final String name;
     private final LocalDate dateOfBirth;
     private LocalDate dateOfDeath;
     private Sex sex;
 
-    public enum Sex {
+    public enum Sex implements Serializable{
         MALE,
-        FEMALE
+        FEMALE;
+
+        public static Sex parseSex(String text){
+            if(text.equals(Sex.MALE.name())){
+                return Sex.MALE;
+            }
+            if(text.equals(Sex.FEMALE.name())){
+                return Sex.FEMALE;
+            }
+            return null;
+        }
     }
 
     public Author(String name, LocalDate dateOfBirth, Sex sex) {
@@ -51,5 +62,15 @@ public class Author {
 
     public Sex getSex() {
         return sex;
+    }
+
+    @Override
+    public String toString() {
+        return "Author{" +
+                "name='" + name + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", dateOfDeath=" + dateOfDeath +
+                ", sex=" + sex +
+                '}';
     }
 }

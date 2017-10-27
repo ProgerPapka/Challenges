@@ -1,5 +1,8 @@
 package task_four.second;
 
+import task_four.second.domain.Author;
+import task_four.second.domain.Book;
+
 import java.time.LocalDate;
 import java.util.*;
 
