@@ -1,4 +1,4 @@
-package task_four.second.entity;
+package task_seven.entity;
 
 import task_four.second.domain.Author;
 
@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class EntityBook implements Serializable{
 

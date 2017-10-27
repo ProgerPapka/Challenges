@@ -1,16 +1,11 @@
-package task_four.second.serialization;
+package task_seven.serialization;
 
 import task_four.second.domain.Author;
 import task_four.second.domain.Book;
 import task_four.second.domain.Publisher;
-import task_four.second.entity.EntityAuthor;
-import task_four.second.entity.EntityBook;
-import task_four.second.entity.EntityPublisher;
-import task_four.second.exception.SerializeException;
+import task_seven.exception.SerializeException;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class StandardSerializer implements ObjectSerializer {
 

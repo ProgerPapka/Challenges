@@ -1,16 +1,15 @@
-package task_four.second;
+package task_seven;
 
 import task_four.second.domain.Author;
 import task_four.second.domain.Book;
 import task_four.second.domain.Publisher;
-import task_four.second.exception.SerializeException;
-import task_four.second.serialization.ObjectSerializer;
-import task_four.second.serialization.StandardSerializer;
-import task_four.second.serialization.TextSerializer;
+import task_seven.exception.SerializeException;
+import task_seven.serialization.ObjectSerializer;
+import task_seven.serialization.StandardSerializer;
+import task_seven.serialization.TextSerializer;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;

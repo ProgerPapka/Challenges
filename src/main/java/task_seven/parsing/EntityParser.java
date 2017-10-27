@@ -1,9 +1,9 @@
-package task_four.second.parsing;
+package task_seven.parsing;
 
-import task_four.second.entity.EntityAuthor;
-import task_four.second.entity.EntityBook;
-import task_four.second.entity.EntityPublisher;
-import task_four.second.exception.ParseException;
+import task_seven.entity.EntityAuthor;
+import task_seven.entity.EntityBook;
+import task_seven.entity.EntityPublisher;
+import task_seven.exception.ParseException;
 
 import java.util.ArrayList;
 import java.util.List;

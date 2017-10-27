@@ -1,9 +1,9 @@
-package task_four.second.validation;
+package task_seven.validation;
 
 import task_four.second.domain.Author;
-import task_four.second.entity.EntityAuthor;
-import task_four.second.entity.EntityBook;
-import task_four.second.entity.EntityPublisher;
+import task_seven.entity.EntityAuthor;
+import task_seven.entity.EntityBook;
+import task_seven.entity.EntityPublisher;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;

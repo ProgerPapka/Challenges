@@ -1,17 +1,17 @@
-package task_four.second.serialization;
+package task_seven.serialization;
 
 import task_four.second.domain.Author;
 import task_four.second.domain.Book;
 import task_four.second.domain.Publisher;
-import task_four.second.entity.EntityAuthor;
-import task_four.second.entity.EntityBook;
-import task_four.second.entity.EntityPublisher;
-import task_four.second.exception.ParseException;
-import task_four.second.exception.SerializeException;
-import task_four.second.exception.ValidateException;
-import task_four.second.parsing.EntityParser;
-import task_four.second.transformation.Transformer;
-import task_four.second.validation.Validator;
+import task_seven.entity.EntityAuthor;
+import task_seven.entity.EntityBook;
+import task_seven.entity.EntityPublisher;
+import task_seven.exception.ParseException;
+import task_seven.exception.SerializeException;
+import task_seven.exception.ValidateException;
+import task_seven.parsing.EntityParser;
+import task_seven.transformation.Transformer;
+import task_seven.validation.Validator;
 
 import java.io.*;
 import java.nio.file.Files;

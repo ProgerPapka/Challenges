@@ -1,11 +1,11 @@
-package task_four.second.transformation;
+package task_seven.transformation;
 
 import task_four.second.domain.Author;
 import task_four.second.domain.Book;
 import task_four.second.domain.Publisher;
-import task_four.second.entity.EntityAuthor;
-import task_four.second.entity.EntityBook;
-import task_four.second.entity.EntityPublisher;
+import task_seven.entity.EntityAuthor;
+import task_seven.entity.EntityBook;
+import task_seven.entity.EntityPublisher;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

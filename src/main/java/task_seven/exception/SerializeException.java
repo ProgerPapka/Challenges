@@ -1,4 +1,4 @@
-package task_four.second.exception;
+package task_seven.exception;
 
 public class SerializeException extends Exception {
 

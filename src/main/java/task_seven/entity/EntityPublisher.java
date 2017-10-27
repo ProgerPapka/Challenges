@@ -1,4 +1,4 @@
-package task_four.second.entity;
+package task_seven.entity;
 
 import task_four.second.domain.Author;
 
