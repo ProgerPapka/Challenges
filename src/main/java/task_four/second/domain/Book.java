@@ -29,6 +29,26 @@ public class Book implements Serializable{
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Book book = (Book) o;
+
+        if (!name.equals(book.name)) return false;
+        if (!releaseDate.equals(book.releaseDate)) return false;
+        return authors.equals(book.authors);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name.hashCode();
+        result = 31 * result + releaseDate.hashCode();
+        result = 31 * result + authors.hashCode();
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "Book{" +
                 "name='" + name + '\'' +

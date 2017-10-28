@@ -20,65 +20,57 @@ import java.util.List;
  */
 public class Transformer {
 
-    public static EntityAuthor transformAuthorToEntity(Author author) {
+    public EntityAuthor transformAuthorToEntity(Author author) {
+        String dateDeath = null;
         if (author.getDateOfDeath() != null) {
-            return new EntityAuthor(author.getName(),
-                    author.getDateOfBirth().toString(),
-                    author.getDateOfDeath().toString(),
-                    author.getSex().name());
-        } else {
-            return new EntityAuthor(author.getName(),
-                    author.getDateOfBirth().toString(),
-                    null,
-                    author.getSex().name());
+            dateDeath = author.getDateOfDeath().toString();
         }
+        return new EntityAuthor(author.getName(),
+                author.getDateOfBirth().toString(),
+                dateDeath,
+                author.getSex().name());
     }
 
-    public static Author transformEntityToAuthor(EntityAuthor entity) {
-        Author author;
-        if (entity.getDateOfDeath() == null) {
-            author = new Author(entity.getName(),
-                    LocalDate.parse(entity.getDateOfBirth()),
-                    null, Author.Sex.parseSex(entity.getSex()));
-        } else {
-            author = new Author(entity.getName(),
-                    LocalDate.parse(entity.getDateOfBirth()),
-                    LocalDate.parse(entity.getDateOfDeath()),
-                    Author.Sex.parseSex(entity.getSex()));
+    public Author transformEntityToAuthor(EntityAuthor entity) {
+        LocalDate dateDeath = null;
+        if (entity.getDateOfDeath() != null) {
+            dateDeath = LocalDate.parse(entity.getDateOfDeath());
         }
-        return author;
+        return new Author(entity.getName(),
+                LocalDate.parse(entity.getDateOfBirth()),
+                dateDeath, Author.Sex.parseSex(entity.getSex()));
     }
 
-    public static EntityBook transformBookToEntity(Book book) {
+    public EntityBook transformBookToEntity(Book book) {
         List<EntityAuthor> authors = new ArrayList<>();
         for (Author author : book.getAuthors()) {
-            authors.add(Transformer.transformAuthorToEntity(author));
+            authors.add(new Transformer().transformAuthorToEntity(author));
         }
         return new EntityBook(book.getName(),
                 book.getReleaseDate().toString(), authors);
     }
 
-    public static Book transformEntityToBook(EntityBook entity) {
+    public Book transformEntityToBook(EntityBook entity) {
         List<Author> authors = new ArrayList<>();
         for (EntityAuthor author : entity.getAuthors()) {
-            authors.add(Transformer.transformEntityToAuthor(author));
+            authors.add(new Transformer().transformEntityToAuthor(author));
         }
         return new Book(entity.getName(),
                 LocalDate.parse(entity.getReleaseDate()), authors);
     }
 
-    public static EntityPublisher transformPublisherToEntity(Publisher publisher) {
+    public EntityPublisher transformPublisherToEntity(Publisher publisher) {
         List<EntityBook> books = new ArrayList<>();
         for (Book book : publisher.getPublishedBooks()) {
-            books.add(Transformer.transformBookToEntity(book));
+            books.add(new Transformer().transformBookToEntity(book));
         }
         return new EntityPublisher(publisher.getName(), books);
     }
 
-    public static Publisher transformEntityToPublisher(EntityPublisher entity) {
+    public Publisher transformEntityToPublisher(EntityPublisher entity) {
         List<Book> books = new ArrayList<>();
         for (EntityBook book : entity.getBooks()) {
-            books.add(Transformer.transformEntityToBook(book));
+            books.add(new Transformer().transformEntityToBook(book));
         }
         return new Publisher(entity.getName(), books);
     }

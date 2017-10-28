@@ -25,7 +25,7 @@ public class TextSerializer implements ObjectSerializer {
         try (PrintStream printStream = new PrintStream(
                 new FileOutputStream(file)
         )) {
-            EntityAuthor a = Transformer.transformAuthorToEntity(author);
+            EntityAuthor a = new Transformer().transformAuthorToEntity(author);
             printStream.print(a.toString());
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
@@ -43,7 +43,7 @@ public class TextSerializer implements ObjectSerializer {
             if (!Validator.isValidAuthor(entity)) {
                 throw new ValidateException("Author isn't valid!");
             }
-            return Transformer.transformEntityToAuthor(entity);
+            return new Transformer().transformEntityToAuthor(entity);
         } catch (IOException | ParseException | ValidateException e) {
             System.out.println(e.getMessage());
             throw new SerializeException("Error deserialize Author!", e);
@@ -56,7 +56,7 @@ public class TextSerializer implements ObjectSerializer {
         try (PrintStream printStream = new PrintStream(
                 new FileOutputStream(file)
         )) {
-            EntityBook b = Transformer.transformBookToEntity(book);
+            EntityBook b = new Transformer().transformBookToEntity(book);
             printStream.print(b);
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
@@ -74,7 +74,7 @@ public class TextSerializer implements ObjectSerializer {
             if (!Validator.isValidBook(entity)) {
                 throw new ValidateException("Book isn't valid!");
             }
-            return Transformer.transformEntityToBook(entity);
+            return new Transformer().transformEntityToBook(entity);
         } catch (IOException | ValidateException | ParseException e) {
             System.out.println(e.getMessage());
             throw new SerializeException("Error deserialize Book!", e);
@@ -87,7 +87,7 @@ public class TextSerializer implements ObjectSerializer {
         try (PrintStream printStream = new PrintStream(
                 new FileOutputStream(file)
         )) {
-            EntityPublisher p = Transformer
+            EntityPublisher p = new Transformer()
                     .transformPublisherToEntity(publisher);
             printStream.print(p.toString());
         } catch (FileNotFoundException e) {
@@ -106,7 +106,7 @@ public class TextSerializer implements ObjectSerializer {
             if (!Validator.isValidPublisher(entity)) {
                 throw new ValidateException("Publisher isn't valid!");
             }
-            return Transformer.transformEntityToPublisher(entity);
+            return new Transformer().transformEntityToPublisher(entity);
         } catch (IOException | ValidateException | ParseException e) {
             System.out.println(e.getMessage());
             throw new SerializeException("Error deserialize Publisher!", e);
