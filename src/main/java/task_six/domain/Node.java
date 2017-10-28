@@ -21,6 +21,12 @@ public class Node {
     public Node(Node parent, int value) {
         this(value);
         this.parent = parent;
+        if (parent != null) {
+            if (parent.children == null) {
+                parent.children = new ArrayList<>();
+            }
+            this.parent.addChildren(this);
+        }
     }
 
     public Node(Node parent, int value, List<Node> children) {
@@ -43,6 +49,13 @@ public class Node {
 
     public void setParent(Node parent) {
         this.parent = parent;
+        if (parent != null) {
+            if (parent.children == null) {
+                parent.children = new ArrayList<>();
+            }
+            this.parent.addChildren(this);
+        }
+
     }
 
     public List<Node> getChildren() {
@@ -66,11 +79,11 @@ public class Node {
         return !isLeaf();
     }
 
-    public void printInfo() {
+    public String info() {
         if (isLeaf()) {
-            System.out.println("This node is leaf, value " + value);
+            return "This node is leaf, value " + value;
         } else {
-            System.out.println("This node is branch, value " + value);
+            return "This node is branch, value " + value;
         }
     }
 }
