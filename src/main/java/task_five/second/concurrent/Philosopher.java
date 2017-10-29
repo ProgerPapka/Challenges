@@ -10,6 +10,7 @@ public class Philosopher implements Runnable{
     private final Fork rightFork;
     private final String name;
 
+    //Нарушение JCC - статические поля должны быть объявлены выше нестатических
     private static LocalTime k = LocalTime.now().plusSeconds(10);
     private int countEat = 0;
     private int countThink = 0;

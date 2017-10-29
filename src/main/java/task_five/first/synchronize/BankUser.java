@@ -5,8 +5,9 @@ import task_five.first.exception.LackOfMoneyException;
 public class BankUser implements Runnable {
 
     private final Bank myBank;
-    private String name;
+    private String name;    //почему это поле не final
 
+    //Этот конструктор не используется, значит может быть удалён
     public BankUser(Bank myBank) {
         this.myBank = myBank;
     }
