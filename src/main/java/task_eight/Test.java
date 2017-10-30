@@ -2,7 +2,6 @@ package task_eight;
 
 import org.apache.log4j.Logger;
 import task_eight.dom.DomParser;
-import task_eight.sax.SaxHandler;
 import task_eight.sax.SaxParser;
 import task_four.second.domain.Publisher;
 
