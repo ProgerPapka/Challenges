@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<publisher name = "Penguin">
+    <books>
+        <book>
+            <name>Heartbreaker</name>
+            <release_date>2017-10-29</release_date>
+            <authors>
+                <author>
+                    <name>Irina</name>
+                    <birth_date>1994-05-19</birth_date>
+                    <sex>FEMALE</sex>
+                </author>
+                <author>
+                    <name>Eldar</name>
+                    <birth_date>1995-08-12</birth_date>
+                    <sex>MALE</sex>
+                </author>
+            </authors>
+        </book>
+        <book>
+            <name>Shantaram</name>
+            <release_date>2010-02-28</release_date>
+            <authors>
+                <author>
+                    <name>Henry</name>
+                    <birth_date>1925-04-15</birth_date>
+                    <death_date>1986-07-11</death_date>
+                    <sex>MALE</sex>
+                </author>
+            </authors>
+        </book>
+    </books>
+</publisher>
