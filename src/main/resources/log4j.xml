@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration>
+
+    <appender name="console" class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                   value="[%p] %d{hh:mm:ss} (%F:%M:%L):\t%m %n"/>
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="levelMin" value="trace"/>
+            <param name="levelMax" value="warn"/>
+        </filter>
+    </appender>
+
+    <appender name="file" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="append" value="true"/>
+        <param name="datePattern" value="'.'yyyy-MM-dd"/>
+        <param name="file" value="D:\\log\\challenges.log"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                   value="[%p] %d{hh:mm:ss} (%F:%M:%L):\t%m %n"/>
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="levelMin" value="trace"/>
+            <param name="levelMax" value="warn"/>
+        </filter>
+    </appender>
+
+    <appender name="debugfile" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="append" value="true"/>
+        <param name="datePattern" value="'.'yyyy-MM-dd"/>
+        <param name="file" value="D:\\log\\challenges_errors.log"/>
+        <param name="threshold" value="error"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                   value="[%p] %d{hh:mm:ss} (%F:%M:%L):\t%m %n"/>
+        </layout>
+    </appender>
+
+    <root>
+        <level value="trace"/>
+        <appender-ref ref="console"/>
+        <appender-ref ref="file"/>
+        <appender-ref ref="debugfile"/>
+    </root>
+
+</log4j:configuration>
