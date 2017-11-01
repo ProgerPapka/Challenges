@@ -8,12 +8,11 @@ public class Test {
 
         Bank bank = new Bank(5000);
 
-        //ниже не поставлены пробелы после "bank,"
-        Runnable user1 = new BankUser(bank,"Ramilya");
-        Runnable user2 = new BankUser(bank,"Aliya");
-        Runnable user3 = new BankUser(bank,"Guzel");
-        Runnable user4 = new BankUser(bank,"Airat");
-        Runnable user5 = new BankUser(bank,"Radik");
+        Runnable user1 = new BankUser(bank, "Ramilya");
+        Runnable user2 = new BankUser(bank, "Aliya");
+        Runnable user3 = new BankUser(bank, "Guzel");
+        Runnable user4 = new BankUser(bank, "Airat");
+        Runnable user5 = new BankUser(bank, "Radik");
 
         ExecutorService executor = Executors.newFixedThreadPool(5);
         executor.execute(user1);

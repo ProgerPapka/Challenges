@@ -8,11 +8,11 @@ public class Test {
 
         Bank bank = new Bank(5000);
 
-        Runnable user1 = new BankUser(bank,"Martin");
-        Runnable user2 = new BankUser(bank,"Harry");
-        Runnable user3 = new BankUser(bank,"Hank");
-        Runnable user4 = new BankUser(bank,"Sue");
-        Runnable user5 = new BankUser(bank,"Anna");
+        Runnable user1 = new BankUser(bank, "Martin");
+        Runnable user2 = new BankUser(bank, "Harry");
+        Runnable user3 = new BankUser(bank, "Hank");
+        Runnable user4 = new BankUser(bank, "Sue");
+        Runnable user5 = new BankUser(bank, "Anna");
 
         ExecutorService executor = Executors.newFixedThreadPool(5);
         executor.execute(user1);
