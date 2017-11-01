@@ -1,15 +1,25 @@
 package task_six.strategy;
 
 import task_six.domain.Node;
-import task_six.domain.Tree;
-import task_six.exception.ExceptionOnATree;
 
-import java.util.*;
+import java.util.Iterator;
+import java.util.List;
+
 
 public class BFSTraversal extends TreeTraversal {
 
-    public BFSTraversal(Tree tree) throws ExceptionOnATree {
-        super(tree);
+    public BFSTraversal() {
+        super();
+    }
+
+    @Override
+    public void setRootNode(Node rootNode) {
+        super.setRootNode(rootNode);
+    }
+
+    @Override
+    public void setBackwardTraversal(boolean backwardTraversal) {
+        super.setBackwardTraversal(backwardTraversal);
     }
 
     @Override

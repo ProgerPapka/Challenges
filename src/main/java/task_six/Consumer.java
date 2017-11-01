@@ -1,13 +1,21 @@
 package task_six;
 
+import org.apache.log4j.Logger;
 import task_six.domain.Node;
-import task_six.strategy.TreeTraversal;
+import task_six.domain.Tree;
+
 
 public class Consumer {
 
-    public void printTreeNodes(TreeTraversal traversal){
-        for(Node node : traversal){
-            System.out.println(node.info());
+    private static Logger logger = Logger.getLogger(Consumer.class);
+
+    public void printTreeNodes(Tree tree) {
+        for (Node node : tree) {
+            if (node.isLeaf()) {
+                logger.info("This node is leaf, value " + node.getValue());
+            } else {
+                logger.info("This node is branch, value " + node.getValue());
+            }
         }
     }
 

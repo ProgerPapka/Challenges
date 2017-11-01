@@ -1,42 +1,48 @@
 package task_six;
 
+import org.apache.log4j.Logger;
 import task_six.domain.Tree;
-import task_six.exception.ExceptionOnATree;
-import task_six.strategy.BFSTraversal;
 import task_six.strategy.DFSTraversal;
-import task_six.strategy.TreeTraversal;
 
 public class Test {
 
-    public static void main(String[] args) {
-        Tree tree = CreationTree.createTwoOnThreeTree();
-        try {
-            Consumer consumer = new Consumer();
-            TreeTraversal traversal = new BFSTraversal(tree);
-            traversal.setBackwardTraversal(true);
-            TreeTraversal t = new DFSTraversal(tree);
-            traversal.setBackwardTraversal(false);
-            consumer.printTreeNodes(traversal);
-            traversal.setBackwardTraversal(true);
-            System.out.println();
-            System.out.println();
-            consumer.printTreeNodes(traversal);
-            System.out.println();
-            System.out.println();
-            consumer.printTreeNodes(t);
-            System.out.println();
-            System.out.println();
-            t.setBackwardTraversal(true);
-            consumer.printTreeNodes(t);
-            System.out.println();
-            System.out.println();
-            Tree randomTree = CreationTree.createRandomTree(3,3);
-            TreeTraversal rt = new BFSTraversal(randomTree);
-            consumer.printTreeNodes(rt);
+    private static Logger logger = Logger.getLogger(Test.class);
 
-        } catch (ExceptionOnATree e) {
-            System.out.println(e.getMessage());
-        }
+    public static void main(String[] args) {
+        Tree standardTree = CreationTree.createTwoOnThreeTree();
+        Consumer consumer = new Consumer();
+        logger.info("Print nodes of standard tree with BFS strategy:");
+        consumer.printTreeNodes(standardTree);
+        standardTree.setBackwardTraversal(true);
+        logger.info("Print nodes of standard tree in backward " +
+                "traversal with BFS strategy:");
+        consumer.printTreeNodes(standardTree);
+
+        standardTree.setStrategy(new DFSTraversal());
+        logger.info("Print nodes of standard tree with DFS strategy:");
+        consumer.printTreeNodes(standardTree);
+        standardTree.setBackwardTraversal(true);
+        logger.info("Print nodes of standard tree in backward " +
+                "traversal with DFS strategy:");
+        consumer.printTreeNodes(standardTree);
+
+        Tree randomTree = CreationTree.createRandomTree(3, 3);
+        logger.info("Print nodes of random tree with BFS strategy:");
+        consumer.printTreeNodes(randomTree);
+        randomTree.setBackwardTraversal(false);
+        randomTree.setBackwardTraversal(true);
+        logger.info("Print nodes of random tree in backward " +
+                "traversal with BFS strategy:");
+        consumer.printTreeNodes(randomTree);
+
+        randomTree.setStrategy(new DFSTraversal());
+        logger.info("Print nodes of random tree with DFS strategy:");
+        consumer.printTreeNodes(randomTree);
+        randomTree.setBackwardTraversal(false);
+        randomTree.setBackwardTraversal(true);
+        logger.info("Print nodes of random tree in backward " +
+                "traversal with DFS strategy:");
+        consumer.printTreeNodes(randomTree);
 
     }
 
