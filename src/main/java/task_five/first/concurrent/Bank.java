@@ -6,7 +6,12 @@ import java.util.concurrent.Semaphore;
 
 public class Bank {
 
+    //В будущем стоит изучить необходимость использования volatile для подобных переменных
+    //В реальном продакшене без volatile это не будет работать
     private int moneyAmount;
+
+    //Рекомендуется все final поля (aka. конфигурацию-сервисы) объявлять выше не final,
+    //отделяя таким образом поля состояния от полей от конфигурации
     private final Semaphore semaphore;
 
     public Bank(int moneyAmount) {
@@ -14,6 +19,7 @@ public class Bank {
         semaphore = new Semaphore(1,true);
     }
 
+    //Этот метод нарушает принцип "Open/Closed" из SOLID
     public Semaphore getSemaphore() {
         return semaphore;
     }

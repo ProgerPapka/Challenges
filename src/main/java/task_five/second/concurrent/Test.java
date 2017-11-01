@@ -1,7 +1,6 @@
 package task_five.second.concurrent;
 
 import task_five.second.Fork;
-import task_five.second.concurrent.Philosopher;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -14,6 +13,8 @@ public class Test {
         Fork fork4 = new Fork();
         Fork fork5 = new Fork();
 
+        //Fully qualified class name - "task_five.second.synchronize.Philosopher" - нарушение JCC
+        //Нехватает пробелов после запятых
         Runnable philosopher1 = new task_five.second.synchronize.Philosopher(fork1, fork2,"Mariya");
         Runnable philosopher2 = new task_five.second.synchronize.Philosopher(fork2, fork3,"Natasha");
         Runnable philosopher3 = new task_five.second.synchronize.Philosopher(fork3, fork4,"Vasya");
