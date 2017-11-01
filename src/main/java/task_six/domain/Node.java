@@ -46,4 +46,21 @@ public class Node {
         return !isLeaf();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Node node = (Node) o;
+
+        if (value != node.value) return false;
+        return children.equals(node.children);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = children.hashCode();
+        result = 31 * result + value;
+        return result;
+    }
 }

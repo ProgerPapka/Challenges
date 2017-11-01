@@ -40,4 +40,18 @@ public class Tree implements Iterable<Node> {
         return strategy.iterator();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Tree tree = (Tree) o;
+
+        return rootNode.equals(tree.rootNode);
+    }
+
+    @Override
+    public int hashCode() {
+        return rootNode.hashCode();
+    }
 }
