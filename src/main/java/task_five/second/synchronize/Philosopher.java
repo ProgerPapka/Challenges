@@ -1,22 +1,19 @@
 package task_five.second.synchronize;
 
-import task_five.second.Fork;
-
 import java.time.LocalTime;
 
 public class Philosopher implements Runnable {
 
-    //Здесь нет необходимости использования класса Fork. Можно использовать просто Object
-    private final Fork leftFork;
-    private final Fork rightFork;
+    private static LocalTime k = LocalTime.now().plusSeconds(10);
+
+    private final Object leftFork;
+    private final Object rightFork;
     private final String name;
 
-    //Нарушение JCC - статические поля должны быть объявлены выше нестатических
-    private static LocalTime k = LocalTime.now().plusSeconds(10);
     private int countEat = 0;
     private int countThink = 0;
 
-    public Philosopher(Fork leftFork, Fork rightFork, String name) {
+    public Philosopher(Object leftFork, Object rightFork, String name) {
         this.leftFork = leftFork;
         this.rightFork = rightFork;
         this.name = name;
@@ -31,7 +28,7 @@ public class Philosopher implements Runnable {
         Thread.sleep(100);
     }
 
-    private int period(){
+    private int period() {
         return k.getSecond() - LocalTime.now().getSecond();
     }
 

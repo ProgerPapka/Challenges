@@ -1,21 +1,20 @@
 package task_five.second.concurrent;
 
-import task_five.second.Fork;
-
 import java.time.LocalTime;
+import java.util.concurrent.locks.ReentrantLock;
 
-public class Philosopher implements Runnable{
+public class Philosopher implements Runnable {
 
-    private final Fork leftFork;
-    private final Fork rightFork;
+    private static LocalTime k = LocalTime.now().plusSeconds(10);
+
+    private final ReentrantLock leftFork;
+    private final ReentrantLock rightFork;
     private final String name;
 
-    //Нарушение JCC - статические поля должны быть объявлены выше нестатических
-    private static LocalTime k = LocalTime.now().plusSeconds(10);
     private int countEat = 0;
     private int countThink = 0;
 
-    public Philosopher(Fork leftFork, Fork rightFork, String name) {
+    public Philosopher(ReentrantLock leftFork, ReentrantLock rightFork, String name) {
         this.leftFork = leftFork;
         this.rightFork = rightFork;
         this.name = name;
@@ -30,7 +29,7 @@ public class Philosopher implements Runnable{
         Thread.sleep(100);
     }
 
-    private int period(){
+    private int period() {
         return k.getSecond() - LocalTime.now().getSecond();
     }
 
