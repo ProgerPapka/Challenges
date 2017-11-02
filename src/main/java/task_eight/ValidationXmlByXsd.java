@@ -18,7 +18,7 @@ public class ValidationXmlByXsd {
 
     private static Logger logger = Logger.getLogger(ValidationXmlByXsd.class);
 
-    public static void validateXml(String xsd_path, String xml_path) {
+    public static boolean validateXml(String xsd_path, String xml_path) {
         try {
             File schemaFile = Paths.get(xsd_path).toFile();
             File dataFile = Paths.get(xml_path).toFile();
@@ -27,10 +27,13 @@ public class ValidationXmlByXsd {
             Validator validator = schema.newValidator();
             validator.validate(new StreamSource(new FileInputStream(dataFile)));
             logger.info("XML valid by XSD!");
+            return true;
         } catch (SAXException e) {
             logger.error("SAX Error!", e);
+            return false;
         } catch (IOException e) {
             logger.error("IO Error", e);
+            return false;
         }
     }
 }
