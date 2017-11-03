@@ -12,6 +12,8 @@ import java.util.StringTokenizer;
 
 public class EntityParser {
 
+    private static final String NULL = "null";
+
     public static EntityAuthor parseAuthor(String text)
             throws ParseException {
         StringTokenizer tokenizer = new StringTokenizer(text);
@@ -19,25 +21,30 @@ public class EntityParser {
         String bDay = null;
         String dDay = null;
         String sex = null;
+        int id = 0;
         try {
             while (tokenizer.hasMoreTokens()) {
                 switch (tokenizer.nextToken()) {
-                    case "name":
+                    case EntityAuthor.ID:
+                        tokenizer.nextToken();
+                        id = Integer.parseInt(tokenizer.nextToken());
+                        break;
+                    case EntityAuthor.NAME:
                         tokenizer.nextToken();
                         name = tokenizer.nextToken();
                         break;
-                    case "dateOfBirth":
+                    case EntityAuthor.BIRTH_DAY:
                         tokenizer.nextToken();
                         bDay = tokenizer.nextToken();
                         break;
-                    case "dateOfDeath":
+                    case EntityAuthor.DEATH_DAY:
                         tokenizer.nextToken();
                         dDay = tokenizer.nextToken();
-                        if (dDay.equals("null")) {
+                        if (dDay.equals(NULL)) {
                             dDay = null;
                         }
                         break;
-                    case "sex":
+                    case EntityAuthor.SEX:
                         tokenizer.nextToken();
                         sex = tokenizer.nextToken();
                         break;
@@ -47,7 +54,7 @@ public class EntityParser {
             System.out.println(e.getMessage());
             throw new ParseException("Authors data is incorrect.", e);
         }
-        return new EntityAuthor(name, bDay, dDay, sex);
+        return new EntityAuthor(id, name, bDay, dDay, sex); //TODO id
     }
 
     public static EntityBook parseBook(String text)
@@ -55,136 +62,71 @@ public class EntityParser {
         StringTokenizer tokenizer = new StringTokenizer(text);
         String nameB = null;
         String dateB = null;
+        int id = 0;
         List<String> authorsId = new ArrayList<>();
-        List<EntityAuthor> authors = new ArrayList<>();
         try {
             while (tokenizer.hasMoreTokens()) {
                 switch (tokenizer.nextToken()) {
-                    case "Book":
+                    case EntityBook.ID:
+                        tokenizer.nextToken();
+                        id = Integer.parseInt(tokenizer.nextToken());
+                        break;
+                    case EntityBook.NAME:
+                        tokenizer.nextToken();
+                        nameB = tokenizer.nextToken();
+                        break;
+                    case EntityBook.RELEASE_DAY:
+                        tokenizer.nextToken();
+                        dateB = tokenizer.nextToken();
+                        break;
+                    case EntityBook.START_LIST_ID_AUTHORS:
+                        tokenizer.nextToken();
                         String token = tokenizer.nextToken();
-                        while (!token.equals("endBook")) {
-                            switch (token) {
-                                case "name":
-                                    tokenizer.nextToken();
-                                    nameB = tokenizer.nextToken();
-                                    break;
-                                case "releaseDate":
-                                    tokenizer.nextToken();
-                                    dateB = tokenizer.nextToken();
-                                    break;
-                                case "ListIdAuthors":
-                                    tokenizer.nextToken();
-                                    token = tokenizer.nextToken();
-                                    while (!token.equals("}")) {
-                                        authorsId.add(token);
-                                        token = tokenizer.nextToken();
-                                    }
-                                    break;
-                            }
+                        while (!token.equals(EntityBook.END_LIST_ID_AUTHORS)) {
+                            authorsId.add(token);
                             token = tokenizer.nextToken();
                         }
                         break;
-                    case "Author":
-                        String t = tokenizer.nextToken();
-                        StringBuilder q = new StringBuilder();
-                        while (!t.equals("endAuthor")) {
-                            q.append(t).append(" ");
-                            t = tokenizer.nextToken();
-                        }
-                        authors.add(EntityParser.parseAuthor(q.toString()));
-                        break;
                 }
             }
-        } catch (NoSuchElementException | ParseException e) {
+        } catch (NoSuchElementException e) {
             System.out.println(e.getMessage());
             throw new ParseException("Books data is incorrect.", e);
         }
-        return new EntityBook(nameB, dateB, authors);
+        return new EntityBook(id, nameB, dateB, authorsId);
     }
 
     public static EntityPublisher parsePublisher(String text)
             throws ParseException {
         StringTokenizer tokenizer = new StringTokenizer(text);
         String nameP = null;
+        int id = 0;
         List<String> booksId = new ArrayList<>();
-        List<EntityAuthor> authors = new ArrayList<>();
-        List<EntityBook> books = new ArrayList<>();
         try {
             while (tokenizer.hasMoreTokens()) {
                 switch (tokenizer.nextToken()) {
-                    case "Publisher":
+                    case EntityBook.ID:
+                        tokenizer.nextToken();
+                        id = Integer.parseInt(tokenizer.nextToken());
+                        break;
+                    case EntityPublisher.NAME:
+                        tokenizer.nextToken();
+                        nameP = tokenizer.nextToken();
+                        break;
+                    case EntityPublisher.START_LIST_ID_BOOKS:
+                        tokenizer.nextToken();
                         String token = tokenizer.nextToken();
-                        while (!token.equals("endPublisher")) {
-                            switch (token) {
-                                case "name":
-                                    tokenizer.nextToken();
-                                    nameP = tokenizer.nextToken();
-                                    break;
-                                case "ListIdBooks":
-                                    tokenizer.nextToken();
-                                    token = tokenizer.nextToken();
-                                    while (!token.equals("}")) {
-                                        booksId.add(token);
-                                        token = tokenizer.nextToken();
-                                    }
-                                    break;
-                            }
+                        while (!token.equals(EntityPublisher.END_LIST_ID_BOOKS)) {
+                            booksId.add(token);
                             token = tokenizer.nextToken();
                         }
                         break;
-                    case "Book":
-                        String nameB = null;
-                        String dateB = null;
-                        List<String> authorsId = new ArrayList<>();
-                        String tok = tokenizer.nextToken();
-                        while (!tok.equals("endBook")) {
-                            switch (tok) {
-                                case "name":
-                                    tokenizer.nextToken();
-                                    nameB = tokenizer.nextToken();
-                                    break;
-                                case "releaseDate":
-                                    tokenizer.nextToken();
-                                    dateB = tokenizer.nextToken();
-                                    break;
-                                case "ListIdAuthors":
-                                    tokenizer.nextToken();
-                                    token = tokenizer.nextToken();
-                                    while (!token.equals("}")) {
-                                        authorsId.add(token);
-                                        token = tokenizer.nextToken();
-                                    }
-                                    break;
-                            }
-                            tok = tokenizer.nextToken();
-                        }
-                        EntityBook b = new EntityBook(nameB, dateB);
-                        b.setListIdAuthors(authorsId);
-                        books.add(b);
-                        break;
-                    case "Author":
-                        String t = tokenizer.nextToken();
-                        StringBuilder q = new StringBuilder();
-                        while (!t.equals("endAuthor")) {
-                            q.append(t).append(" ");
-                            t = tokenizer.nextToken();
-                        }
-                        authors.add(EntityParser.parseAuthor(q.toString()));
-                        break;
                 }
             }
-        } catch (NoSuchElementException | ParseException e) {
+        } catch (NoSuchElementException e) {
             System.out.println(e.getMessage());
             throw new ParseException("Publisher data is incorrect.", e);
         }
-        for (EntityAuthor author : authors){
-            for (EntityBook book : books){
-                if(book.getListIdAuthors().contains(
-                        String.valueOf(author.hashCode()))){
-                    book.addAuthor(author);
-                }
-            }
-        }
-        return new EntityPublisher(nameP, books);
+        return new EntityPublisher(id, nameP, booksId);
     }
 }

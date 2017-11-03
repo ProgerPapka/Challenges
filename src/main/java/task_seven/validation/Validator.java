@@ -10,7 +10,10 @@ import java.time.format.DateTimeParseException;
 
 public class Validator {
 
-    public static boolean isValidAuthor(EntityAuthor author) {
+    public boolean isValidAuthor(EntityAuthor author) {
+        if(author == null){
+            return false;
+        }
         if (author.getName() == null ||
                 author.getDateOfBirth() == null) {
             return false;
@@ -27,31 +30,28 @@ public class Validator {
                 author.getSex().equals(Author.Sex.FEMALE.name());
     }
 
-    public static boolean isValidBook(EntityBook book) {
+    public boolean isValidBook(EntityBook book) {
+        if (book == null){
+            return false;
+        }
         if (book.getName() == null || book.getReleaseDate() == null ||
-                book.getAuthors().size() == 0){
+                book.getListIdAuthors().isEmpty()) {
             return false;
         }
         try {
             LocalDate.parse(book.getReleaseDate());
-        } catch (DateTimeParseException e){
+        } catch (DateTimeParseException e) {
             return false;
-        }
-        for (EntityAuthor author : book.getAuthors()){
-            if(!isValidAuthor(author))
-                return false;
         }
         return true;
     }
 
-    public static boolean isValidPublisher(EntityPublisher publisher) {
-        if(publisher.getName() == null || publisher.getBooks().size() == 0){
+    public boolean isValidPublisher(EntityPublisher publisher) {
+        if(publisher == null){
             return false;
         }
-        for(EntityBook book : publisher.getBooks()){
-            if(!isValidBook(book)){
-                return false;
-            }
+        if (publisher.getName() == null || publisher.getListIdBooks().isEmpty()) {
+            return false;
         }
         return true;
     }

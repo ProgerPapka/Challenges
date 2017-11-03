@@ -14,17 +14,7 @@ public class Author implements Serializable{
 
     public enum Sex implements Serializable{
         MALE,
-        FEMALE;
-
-        public static Sex parseSex(String text){
-            if(text.equals(Sex.MALE.name())){
-                return Sex.MALE;
-            }
-            if(text.equals(Sex.FEMALE.name())){
-                return Sex.FEMALE;
-            }
-            return null;
-        }
+        FEMALE
     }
 
     public Author(String name, LocalDate dateOfBirth, Sex sex) {
@@ -39,7 +29,7 @@ public class Author implements Serializable{
     }
 
     public void setDateOfDeath(LocalDate dateOfDeath) throws OperationDontPossibleException {
-        if (dateOfDeath != null)
+        if (this.dateOfDeath != null)
             throw new OperationDontPossibleException("Author has already died");
         this.dateOfDeath = dateOfDeath;
     }

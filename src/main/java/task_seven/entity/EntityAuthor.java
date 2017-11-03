@@ -1,22 +1,35 @@
 package task_seven.entity;
 
-import task_four.second.domain.Author;
+import task_seven.representation.EntityAuthorAsString;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 
-public class EntityAuthor implements Serializable {
+public class EntityAuthor implements Serializable, EntityAuthorAsString {
 
-    private String name;
-    private String dateOfBirth;
+    private int id;
+    private final String name;
+    private final String dateOfBirth;
     private String dateOfDeath;
-    private String sex;
+    private final String sex;
 
-    public EntityAuthor(String name, String dateOfBirth, String dateOfDeath, String sex) {
+    public EntityAuthor(int id, String name, String dateOfBirth, String dateOfDeath, String sex) {
+        this.id = id;
         this.name = name;
         this.dateOfBirth = dateOfBirth;
         this.dateOfDeath = dateOfDeath;
         this.sex = sex;
+    }
+
+    public EntityAuthor(String name, String dateOfBirth, String dateOfDeath, String sex) {
+        this(0,name,dateOfBirth,dateOfDeath,sex);
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getName() {
@@ -40,13 +53,13 @@ public class EntityAuthor implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        EntityAuthor that = (EntityAuthor) o;
+        EntityAuthor author = (EntityAuthor) o;
 
-        if (!name.equals(that.name)) return false;
-        if (!dateOfBirth.equals(that.dateOfBirth)) return false;
-        if (dateOfDeath != null ? !dateOfDeath.equals(that.dateOfDeath) : that.dateOfDeath != null)
+        if (!name.equals(author.name)) return false;
+        if (!dateOfBirth.equals(author.dateOfBirth)) return false;
+        if (dateOfDeath != null ? !dateOfDeath.equals(author.dateOfDeath) : author.dateOfDeath != null)
             return false;
-        return sex.equals(that.sex);
+        return sex.equals(author.sex);
     }
 
     @Override
@@ -60,32 +73,25 @@ public class EntityAuthor implements Serializable {
 
     @Override
     public String toString() {
-        StringBuilder res = new StringBuilder();
-        res.append("Author \n\t");
-        res.append("id = ");
-        res.append(hashCode());
-        res.append("\n\t");
-        res.append("name = ");
-        res.append(name);
-        res.append("\n\t");
-        res.append("dateOfBirth = ");
-        res.append(dateOfBirth);
-        res.append("\n\t");
-        res.append("dateOfDeath = ");
-        res.append(dateOfDeath);
-        res.append("\n\t");
-        res.append("sex = ");
-        res.append(sex);
-        res.append('\n');
-        res.append("endAuthor");
-        return res.toString();
+        return "EntityAuthor{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", dateOfBirth='" + dateOfBirth + '\'' +
+                ", dateOfDeath='" + dateOfDeath + '\'' +
+                ", sex='" + sex + '\'' +
+                '}';
     }
 
-    public static void main(String[] args) {
-        System.out.println(new EntityAuthor("Igor",
-                LocalDate.of(1895, 12, 1).toString(),
-                LocalDate.of(1990, 1, 12).toString(),
-                Author.Sex.MALE.name()
-        ).toString());
+    @Override
+    public String valueAsString() {
+        StringBuilder res = new StringBuilder();
+        res.append(START_AUTHOR).append("\n\t");
+        res.append(ID).append(EQUALITY).append(id).append("\n\t");
+        res.append(NAME).append(EQUALITY).append(name).append("\n\t");
+        res.append(BIRTH_DAY).append(EQUALITY).append(dateOfBirth).append("\n\t");
+        res.append(DEATH_DAY).append(EQUALITY).append(dateOfDeath).append("\n\t");
+        res.append(SEX).append(EQUALITY).append(sex).append("\n");
+        res.append(END_AUTHOR);
+        return res.toString();
     }
 }

@@ -1,5 +1,7 @@
 package task_seven;
 
+import org.apache.log4j.Logger;
+
 import task_four.second.domain.Author;
 import task_four.second.domain.Book;
 import task_four.second.domain.Publisher;
@@ -17,6 +19,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class SerializeTest {
+
+    private static Logger logger = Logger.getLogger(SerializeTest.class);
 
     private List<Author> authors;
     private List<Book> books;
@@ -40,22 +44,22 @@ public class SerializeTest {
         if (!filePublisher.exists()) {
             filePublisher.createNewFile();
         }
-        System.out.println("Standard serialize:");
+        logger.info("Standard serialize:");
         try {
-            System.out.println(authors.get(0).toString());
+            logger.info(authors.get(0).toString());
             serializer.writeAuthor(authors.get(0), fileAuthor);
-            System.out.println(serializer.readAuthor(fileAuthor).toString());
-            System.out.println();
+            logger.info(serializer.readAuthor(fileAuthor).toString());
+            logger.info("\n");
 
-            System.out.println(books.get(0).toString());
+            logger.info(books.get(0).toString());
             serializer.writeBook(books.get(0), fileBook);
-            System.out.println(serializer.readBook(fileBook).toString());
-            System.out.println();
+            logger.info(serializer.readBook(fileBook).toString());
+            logger.info("\n");
 
-            System.out.println(publishers.get(0).toString());
+            logger.info(publishers.get(0).toString());
             serializer.writePublisher(publishers.get(0), filePublisher);
-            System.out.println(serializer.readPublisher(filePublisher).toString());
-            System.out.println();
+            logger.info(serializer.readPublisher(filePublisher).toString());
+            logger.info("\n");
         } catch (SerializeException e) {
             System.out.println(e.getMessage());
         }
@@ -66,7 +70,7 @@ public class SerializeTest {
         if (!fileAuthor.exists()) {
             fileAuthor.createNewFile();
         }
-        System.out.println("Text serialize:");
+        logger.info("Text serialize:");
         try {
             Author james = new Author("James",
                     LocalDate.of(1995, 8, 12),
@@ -74,9 +78,9 @@ public class SerializeTest {
             ObjectSerializer serializer = new TextSerializer();
             serializer.writeAuthor(james, fileAuthor);
             Author jamesTwo = serializer.readAuthor(fileAuthor);
-            System.out.println(james.toString());
-            System.out.println(jamesTwo.toString());
-            System.out.println();
+            logger.info(james.toString());
+            logger.info(jamesTwo.toString());
+            logger.info("\n");
 
             Author anna = new Author("Anna",
                     LocalDate.of(1922, 6, 15),
@@ -92,9 +96,9 @@ public class SerializeTest {
             );
             serializer.writeBook(bigBan, fileAuthor);
             Book bigBanTwo = serializer.readBook(fileAuthor);
-            System.out.println(bigBan.toString());
-            System.out.println(bigBanTwo.toString());
-            System.out.println();
+            logger.info(bigBan.toString());
+            logger.info(bigBanTwo.toString());
+            logger.info("\n");
 
             Book boo = new Book(
                     "Boo", LocalDate.now(), this.authors
@@ -105,10 +109,11 @@ public class SerializeTest {
             );
             serializer.writePublisher(scrabble, fileAuthor);
             Publisher scrabbleTwo = serializer.readPublisher(fileAuthor);
-            System.out.println(scrabble);
-            System.out.println(scrabbleTwo);
+            logger.info(scrabble);
+            logger.info(scrabbleTwo);
+            logger.info(scrabble.equals(scrabbleTwo));
         } catch (SerializeException e) {
-            System.out.println(e.getMessage());
+            logger.error(e);
         }
     }
 

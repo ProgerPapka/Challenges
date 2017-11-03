@@ -1,31 +1,31 @@
 package task_seven.entity;
 
-import task_four.second.domain.Author;
+import task_seven.representation.EntityBookAsString;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 
-public class EntityBook implements Serializable{
+public class EntityBook implements Serializable, EntityBookAsString {
 
-    private String name;
-    private String releaseDate;
-    private List<EntityAuthor> authors;
+    private int id;
+    private final String name;
+    private final String releaseDate;
     private List<String> listIdAuthors;
 
-    public EntityBook(String name, String releaseDate, List<EntityAuthor> authors) {
-        this.name = name;
-        this.releaseDate = releaseDate;
-        this.authors = authors;
+    public EntityBook(int id, String name, String releaseDate) {
+        this(id,name,releaseDate,new ArrayList<>());
     }
 
     public EntityBook(String name, String releaseDate) {
+        this(0,name,releaseDate,new ArrayList<>());
+    }
+
+    public EntityBook(int id, String name, String releaseDate, List<String> listIdAuthors) {
+        this.id = id;
         this.name = name;
         this.releaseDate = releaseDate;
-        this.authors = new ArrayList<>();
+        this.listIdAuthors = listIdAuthors;
     }
 
     public List<String> getListIdAuthors() {
@@ -36,12 +36,20 @@ public class EntityBook implements Serializable{
         this.listIdAuthors = listIdAuthors;
     }
 
-    public void setAuthors(List<EntityAuthor> authors) {
-        this.authors = authors;
+    public boolean containsAuthor(String id){
+        return listIdAuthors.contains(id);
     }
 
-    public void addAuthor(EntityAuthor a){
-        authors.add(a);
+    public void addIdAuthor(String id) {
+        listIdAuthors.add(id);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -50,10 +58,6 @@ public class EntityBook implements Serializable{
 
     public String getReleaseDate() {
         return releaseDate;
-    }
-
-    public List<EntityAuthor> getAuthors() {
-        return authors;
     }
 
     @Override
@@ -65,59 +69,39 @@ public class EntityBook implements Serializable{
 
         if (!name.equals(that.name)) return false;
         if (!releaseDate.equals(that.releaseDate)) return false;
-        return authors.equals(that.authors);
+        return listIdAuthors.equals(that.listIdAuthors);
     }
 
     @Override
     public int hashCode() {
         int result = name.hashCode();
         result = 31 * result + releaseDate.hashCode();
-        result = 31 * result + authors.hashCode();
+        result = 31 * result + listIdAuthors.hashCode();
         return result;
     }
 
     @Override
     public String toString() {
-        StringBuilder res = new StringBuilder();
-        res.append("Book\n\t");
-        res.append("id = ");
-        res.append(hashCode());
-        res.append("\n\t");
-        res.append("name = ");
-        res.append(name);
-        res.append("\n\t");
-        res.append("releaseDate = ");
-        res.append(releaseDate);
-        res.append("\n\t");
-        res.append("ListIdAuthors { ");
-        for (EntityAuthor a: new HashSet<>(authors)) {
-            res.append("\n\t\t");
-            res.append(a.hashCode());
-        }
-        res.append("\n\t");
-        res.append("}");
-        res.append('\n');
-        res.append("endBook");
-        for (EntityAuthor a: authors){
-            res.append('\n');
-            res.append(a.toString());
-        }
-        return res.toString();
+        return "EntityBook{" +
+                "name='" + name + '\'' +
+                ", releaseDate='" + releaseDate + '\'' +
+                ", listIdAuthors=" + listIdAuthors +
+                '}';
     }
 
-    public static void main(String[] args) {
-        EntityAuthor a = new EntityAuthor("Anna",
-                LocalDate.of(1911, 3, 13).toString(),
-                LocalDate.of(1988, 11, 22).toString(),
-                Author.Sex.FEMALE.name());
-        EntityAuthor b = new EntityAuthor("Masha",
-                LocalDate.of(1931, 3, 13).toString(),
-                LocalDate.of(1998, 1, 21).toString(),
-                Author.Sex.FEMALE.name());
-        List<EntityAuthor> aa = Arrays.asList(a,b);
-        EntityBook book = new EntityBook(
-                "BigBan",LocalDate.now().toString(),aa
-        );
-        System.out.println(book.toString());
+    @Override
+    public String valueAsString() {
+        StringBuilder res = new StringBuilder();
+        res.append(START_BOOK).append("\n\t");
+        res.append(ID).append(EQUALITY).append(id).append("\n\t");
+        res.append(NAME).append(EQUALITY).append(name).append("\n\t");
+        res.append(RELEASE_DAY).append(EQUALITY).append(releaseDate).append("\n\t");
+        res.append(START_LIST_ID_AUTHORS).append(START_LIST_ID);
+        for (String id : listIdAuthors) {
+            res.append("\n\t\t").append(id);
+        }
+        res.append("\n\t").append(END_LIST_ID_AUTHORS).append('\n');
+        res.append(END_BOOK);
+        return res.toString();
     }
 }
