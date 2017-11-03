@@ -15,9 +15,7 @@ import task_seven.transformation.Transformer;
 import task_seven.validation.Validator;
 
 import java.io.*;
-import java.time.LocalDate;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class TextSerializer implements ObjectSerializer {
 
@@ -45,12 +43,10 @@ public class TextSerializer implements ObjectSerializer {
     public Author readAuthor(File file) throws SerializeException {
         try {
             openStreamToRead(file);
-            StringBuilder values = new StringBuilder();
-            while (scanner.hasNext()) {
-                appendDataAuthor(values);
-            }
+            List<EntityAuthor> entityAuthors = new ArrayList<>();
+            parseAll(new ArrayList<>(), new ArrayList<>(), entityAuthors);
             closeStreamToRead();
-            EntityAuthor entity = EntityParser.parseAuthor(values.toString());
+            EntityAuthor entity = entityAuthors.get(0);
             if (!validator.isValidAuthor(entity)) {
                 throw new ValidateException("Author isn't valid!");
             }
@@ -94,23 +90,11 @@ public class TextSerializer implements ObjectSerializer {
             throws SerializeException {
         try {
             openStreamToRead(file);
-            EntityBook book = null;
+            List<EntityBook> entityBooks = new ArrayList<>();
             List<EntityAuthor> entityAuthors = new ArrayList<>();
-            while (scanner.hasNext()) {
-                String curElement = scanner.next();
-                StringBuilder values = new StringBuilder();
-                switch (curElement) {
-                    case EntityBook.START_BOOK:
-                        appendDataBook(values);
-                        book = EntityParser.parseBook(values.toString());
-                        break;
-                    case EntityAuthor.START_AUTHOR:
-                        appendDataAuthor(values);
-                        entityAuthors.add(EntityParser.parseAuthor(values.toString()));
-                        break;
-                }
-            }
+            parseAll(new ArrayList<>(), entityBooks, entityAuthors);
             closeStreamToRead();
+            EntityBook book = entityBooks.get(0);
             if (!validator.isValidBook(book)) {
                 throw new ValidateException("Book isn't valid!");
             }
@@ -119,14 +103,6 @@ public class TextSerializer implements ObjectSerializer {
         } catch (IOException | ValidateException | ParseException e) {
             System.out.println(e.getMessage());
             throw new SerializeException("Error deserialize Book!", e);
-        }
-    }
-
-    private void appendDataBook(StringBuilder values) {
-        String curElement = scanner.next();
-        while (!Objects.equals(curElement, EntityBook.END_BOOK)) {
-            values.append(curElement).append(" ");
-            curElement = scanner.next();
         }
     }
 
@@ -167,27 +143,11 @@ public class TextSerializer implements ObjectSerializer {
             throws SerializeException {
         try {
             openStreamToRead(file);
-            EntityPublisher publisher = null;
+            List<EntityPublisher> entityPublishers = new ArrayList<>();
             List<EntityBook> entityBooks = new ArrayList<>();
             List<EntityAuthor> entityAuthors = new ArrayList<>();
-            while (scanner.hasNext()) {
-                String curElement = scanner.next();
-                StringBuilder values = new StringBuilder();
-                switch (curElement) {
-                    case EntityPublisher.START_PUBLISHER:
-                        appendDataPublisher(values);
-                        publisher = EntityParser.parsePublisher(values.toString());
-                        break;
-                    case EntityBook.START_BOOK:
-                        appendDataBook(values);
-                        entityBooks.add(EntityParser.parseBook(values.toString()));
-                        break;
-                    case EntityAuthor.START_AUTHOR:
-                        appendDataAuthor(values);
-                        entityAuthors.add(EntityParser.parseAuthor(values.toString()));
-                        break;
-                }
-            }
+            parseAll(entityPublishers, entityBooks, entityAuthors);
+            EntityPublisher publisher = entityPublishers.get(0);
             closeStreamToRead();
             if (!validator.isValidPublisher(publisher)) {
                 throw new ValidateException("Publisher isn't valid!");
@@ -206,6 +166,37 @@ public class TextSerializer implements ObjectSerializer {
         } catch (IOException | ValidateException | ParseException e) {
             System.out.println(e.getMessage());
             throw new SerializeException("Error deserialize Publisher!", e);
+        }
+    }
+
+    private void parseAll(List<EntityPublisher> publisher,
+                          List<EntityBook> entityBooks,
+                          List<EntityAuthor> entityAuthors) throws ParseException {
+        while (scanner.hasNext()) {
+            String curElement = scanner.next();
+            StringBuilder values = new StringBuilder();
+            switch (curElement) {
+                case EntityPublisher.START_PUBLISHER:
+                    appendDataPublisher(values);
+                    publisher.add(EntityParser.parsePublisher(values.toString()));
+                    break;
+                case EntityBook.START_BOOK:
+                    appendDataBook(values);
+                    entityBooks.add(EntityParser.parseBook(values.toString()));
+                    break;
+                case EntityAuthor.START_AUTHOR:
+                    appendDataAuthor(values);
+                    entityAuthors.add(EntityParser.parseAuthor(values.toString()));
+                    break;
+            }
+        }
+    }
+
+    private void appendDataBook(StringBuilder values) {
+        String curElement = scanner.next();
+        while (!Objects.equals(curElement, EntityBook.END_BOOK)) {
+            values.append(curElement).append(" ");
+            curElement = scanner.next();
         }
     }
 

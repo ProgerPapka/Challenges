@@ -111,7 +111,6 @@ public class SerializeTest {
             Publisher scrabbleTwo = serializer.readPublisher(fileAuthor);
             logger.info(scrabble);
             logger.info(scrabbleTwo);
-            logger.info(scrabble.equals(scrabbleTwo));
         } catch (SerializeException e) {
             logger.error(e);
         }
