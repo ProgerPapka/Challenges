@@ -54,7 +54,7 @@ public class EntityParser {
             System.out.println(e.getMessage());
             throw new ParseException("Authors data is incorrect.", e);
         }
-        return new EntityAuthor(id, name, bDay, dDay, sex); //TODO id
+        return new EntityAuthor(id, name, bDay, dDay, sex);
     }
 
     public static EntityBook parseBook(String text)
