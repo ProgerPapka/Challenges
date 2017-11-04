@@ -6,6 +6,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+import task_eight.Parser;
 import task_four.second.domain.Author;
 import task_four.second.domain.Book;
 import task_four.second.domain.Publisher;
@@ -20,7 +21,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DomParser {
+public class DomParser implements Parser {
 
     private static Logger logger = Logger.getLogger(DomParser.class);
 
@@ -28,6 +29,7 @@ public class DomParser {
     private List<Book> books = new ArrayList<>();
     private String namePublisher;
 
+    @Override
     public Publisher parsePublisher(String xml) {
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -37,11 +39,11 @@ public class DomParser {
             NodeList nodeList = doc.getChildNodes();
             parsingChildNodes(nodeList);
             logger.info("DomParser stop parse XML...");
-            return new Publisher(namePublisher,books);
+            return new Publisher(namePublisher, books);
         } catch (ParserConfigurationException | SAXException | IOException e) {
             logger.error(e.getMessage(), e);
-        } catch (Throwable e){
-            logger.fatal(e.getMessage(),e);
+        } catch (Throwable e) {
+            logger.fatal(e.getMessage(), e);
         }
         return null;
     }
@@ -50,7 +52,7 @@ public class DomParser {
         if (nodes != null) {
             for (int i = 0; i < nodes.getLength(); i++) {
                 Node node = nodes.item(i);
-                if(node.getNodeName().equals("book")){
+                if (node.getNodeName().equals("book")) {
                     authors = new ArrayList<>();
                 }
                 parsingChildNodes(node.getChildNodes());
@@ -115,6 +117,6 @@ public class DomParser {
                     break;
             }
         }
-        return new Book(name,LocalDate.parse(rDate),authors);
+        return new Book(name, LocalDate.parse(rDate), authors);
     }
 }
