@@ -4,6 +4,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import task_six.domain.Node;
 import task_six.domain.Tree;
+import task_six.exception.ExceptionOnATree;
 
 import java.util.Arrays;
 
@@ -15,7 +16,7 @@ public class CreationTreeTest {
     private static int maxCountNodes;
 
     @BeforeClass
-    public static void initData() {
+    public static void initData() throws ExceptionOnATree {
         maxCountNodes = 4;
         Node root = new Node(1);
         Node child1 = new Node(2);

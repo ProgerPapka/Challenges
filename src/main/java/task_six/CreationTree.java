@@ -2,6 +2,7 @@ package task_six;
 
 import task_six.domain.Node;
 import task_six.domain.Tree;
+import task_six.exception.ExceptionOnATree;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -10,7 +11,7 @@ public class CreationTree {
 
     private static Random random = new Random();
 
-    public static Tree createRandomTree(int maxDepth, int maxBreadth) {
+    public static Tree createRandomTree(int maxDepth, int maxBreadth) throws ExceptionOnATree {
         Node rootNode = new Node(random.nextInt());
         int depth = random.nextInt(maxDepth) + 1;
         int currentDepth = 1;
@@ -32,7 +33,7 @@ public class CreationTree {
         }
     }
 
-    public static Tree createTwoOnThreeTree() {
+    public static Tree createTwoOnThreeTree() throws ExceptionOnATree {
         Node rootNode = new Node(1);
 
         Node firstChild = new Node(2);
