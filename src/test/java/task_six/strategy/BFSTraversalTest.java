@@ -33,7 +33,6 @@ public class BFSTraversalTest {
         Collections.reverse(valuesBFSTree);
         Tree tree = CreationTree.createTwoOnThreeTree();
         tree.setStrategy(new BFSTraversal());
-        tree.setBackwardTraversal(false);
         tree.setBackwardTraversal(true);
         List<Integer> valuesTree = new ArrayList<>();
         for (Node node : tree){

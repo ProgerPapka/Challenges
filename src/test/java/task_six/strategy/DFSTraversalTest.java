@@ -33,7 +33,6 @@ public class DFSTraversalTest {
         Collections.reverse(valuesDFSTree);
         Tree tree = CreationTree.createTwoOnThreeTree();
         tree.setStrategy(new DFSTraversal());
-        tree.setBackwardTraversal(false);
         tree.setBackwardTraversal(true);
         List<Integer> valuesTree = new ArrayList<>();
         for (Node node : tree){
