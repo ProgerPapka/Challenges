@@ -5,5 +5,4 @@ import task_six.domain.Tree;
 
 public interface Visitor {
     void visitNode(Node node);
-    void visitTree(Tree tree);
 }

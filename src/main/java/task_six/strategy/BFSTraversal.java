@@ -6,10 +6,6 @@ import java.util.List;
 
 public class BFSTraversal extends TreeTraversal {
 
-    public BFSTraversal(){
-        super();
-    }
-
     @Override
     protected void fillListTraversal(List<Node> children, List<Node> listTraversal) {
         if (children != null) {

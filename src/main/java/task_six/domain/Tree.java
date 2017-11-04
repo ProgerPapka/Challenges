@@ -64,6 +64,8 @@ public class Tree implements Iterable<Node>, Element {
 
     @Override
     public void accept(Visitor visitor) {
-        visitor.visitTree(this);
+        for(Node node : this){
+            node.accept(visitor);
+        }
     }
 }

@@ -17,10 +17,4 @@ public class PrinterElement implements Visitor {
         }
     }
 
-    @Override
-    public void visitTree(Tree tree) {
-        for (Node node : tree) {
-            node.accept(this);
-        }
-    }
 }
