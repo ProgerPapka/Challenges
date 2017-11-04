@@ -2,9 +2,11 @@ package task_four.second.domain;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.Period;
+import java.util.Arrays;
 import java.util.List;
 
-public class Book implements Serializable{
+public class Book implements Serializable {
 
     private final String name;
     private final LocalDate releaseDate;
@@ -14,6 +16,25 @@ public class Book implements Serializable{
         this.name = name;
         this.releaseDate = releaseDate;
         this.authors = authors;
+        this.authors.sort((o1, o2) -> {
+            int a = Period.between(o1.getDateOfBirth(), o2.getDateOfBirth())
+                    .getDays();
+            if (a > 0) {
+                return 1;
+            }
+            if (a < 0) {
+                return -1;
+            }
+            int b = Period.between(o1.getDateOfDeath(), o2.getDateOfDeath())
+                    .getDays();
+            if (b > 0) {
+                return 1;
+            }
+            if (b < 0) {
+                return -1;
+            }
+            return o1.getName().compareTo(o2.getName());
+        });
     }
 
     public String getName() {

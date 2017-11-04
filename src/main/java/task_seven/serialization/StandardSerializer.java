@@ -10,9 +10,9 @@ import java.io.*;
 public class StandardSerializer implements ObjectSerializer {
 
     @Override
-    public void writeAuthor(Author author, File file)
+    public boolean writeAuthor(Author author, File file)
             throws SerializeException {
-        writeObject(author, file);
+        return writeObject(author, file);
     }
 
     @Override
@@ -23,9 +23,9 @@ public class StandardSerializer implements ObjectSerializer {
     }
 
     @Override
-    public void writeBook(Book book, File file)
+    public boolean writeBook(Book book, File file)
             throws SerializeException {
-        writeObject(book, file);
+        return writeObject(book, file);
     }
 
     @Override
@@ -36,9 +36,9 @@ public class StandardSerializer implements ObjectSerializer {
     }
 
     @Override
-    public void writePublisher(Publisher publisher, File file)
+    public boolean writePublisher(Publisher publisher, File file)
             throws SerializeException {
-        writeObject(publisher, file);
+        return writeObject(publisher, file);
     }
 
     @Override
@@ -48,12 +48,14 @@ public class StandardSerializer implements ObjectSerializer {
         return (publisher != null) ? (Publisher) publisher : null;
     }
 
-    private void writeObject(Object object, File file) {
+    private boolean writeObject(Object object, File file) {
         try (ObjectOutputStream outputStream = new ObjectOutputStream(
                 new FileOutputStream(file))) {
             outputStream.writeObject(object);
+            return true;
         } catch (IOException e) {
             System.out.println(e.getMessage());
+            return false;
         }
     }
 

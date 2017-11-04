@@ -28,12 +28,13 @@ public class TextSerializer implements ObjectSerializer {
     private FileReader fileReader;
 
     @Override
-    public void writeAuthor(Author author, File file) throws SerializeException {
+    public boolean writeAuthor(Author author, File file) throws SerializeException {
         EntityAuthor a = transformer.transformAuthorToEntity(author);
         try {
             openStreamToWrite(file);
             writeObject(a);
             closeStreamToWrite();
+            return true;
         } catch (IOException e) {
             throw new SerializeException("IOException", e);
         }
@@ -66,7 +67,7 @@ public class TextSerializer implements ObjectSerializer {
     }
 
     @Override
-    public void writeBook(Book book, File file)
+    public boolean writeBook(Book book, File file)
             throws SerializeException {
         List<EntityAuthor> authors = new ArrayList<>();
         for (Author author : book.getAuthors()) {
@@ -80,6 +81,7 @@ public class TextSerializer implements ObjectSerializer {
                 writeObject(author);
             }
             closeStreamToWrite();
+            return true;
         } catch (IOException e) {
             throw new SerializeException("IOException", e);
         }
@@ -107,7 +109,7 @@ public class TextSerializer implements ObjectSerializer {
     }
 
     @Override
-    public void writePublisher(Publisher publisher, File file)
+    public boolean writePublisher(Publisher publisher, File file)
             throws SerializeException {
         Set<EntityAuthor> authors = new HashSet<>();
         List<EntityBook> books = new ArrayList<>();
@@ -132,6 +134,7 @@ public class TextSerializer implements ObjectSerializer {
                 writeObject(author);
             }
             closeStreamToWrite();
+            return true;
         } catch (IOException e) {
             throw new SerializeException("IOException", e);
         }
