@@ -1,9 +1,11 @@
 package task_six.domain;
 
+import task_six.visitor.Visitor;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Node {
+public class Node implements Element {
 
     private List<Node> children;
     private int value;
@@ -62,5 +64,10 @@ public class Node {
         int result = children.hashCode();
         result = 31 * result + value;
         return result;
+    }
+
+    @Override
+    public void accept(Visitor visitor) {
+        visitor.visitNode(this);
     }
 }

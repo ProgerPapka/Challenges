@@ -4,10 +4,11 @@ import org.apache.log4j.Logger;
 import task_six.exception.ExceptionOnATree;
 import task_six.strategy.BFSTraversal;
 import task_six.strategy.TreeTraversal;
+import task_six.visitor.Visitor;
 
 import java.util.Iterator;
 
-public class Tree implements Iterable<Node> {
+public class Tree implements Iterable<Node>, Element {
 
     private static Logger logger = Logger.getLogger(Tree.class);
 
@@ -59,5 +60,10 @@ public class Tree implements Iterable<Node> {
     @Override
     public int hashCode() {
         return rootNode.hashCode();
+    }
+
+    @Override
+    public void accept(Visitor visitor) {
+        visitor.visitTree(this);
     }
 }

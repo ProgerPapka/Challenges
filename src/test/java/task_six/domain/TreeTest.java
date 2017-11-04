@@ -3,6 +3,7 @@ package task_six.domain;
 import org.junit.Before;
 import org.junit.Test;
 import task_six.CreationTree;
+import task_six.visitor.PrinterElement;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -45,6 +46,7 @@ public class TreeTest {
         for (Node node : tree){
             values.add(node.getValue());
         }
+        tree.accept(new PrinterElement());
         assertEquals(values,treeValues);
     }
 
