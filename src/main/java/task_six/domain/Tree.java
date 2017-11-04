@@ -1,5 +1,7 @@
 package task_six.domain;
 
+import org.apache.log4j.Logger;
+import task_six.exception.ExceptionOnATree;
 import task_six.strategy.BFSTraversal;
 import task_six.strategy.TreeTraversal;
 
@@ -7,16 +9,16 @@ import java.util.Iterator;
 
 public class Tree implements Iterable<Node> {
 
+    private static Logger logger = Logger.getLogger(Tree.class);
+
     private final Node rootNode;
     private TreeTraversal strategy;
 
-    public Tree(Node rootNode) {
-        this.rootNode = rootNode;
-        this.strategy = new BFSTraversal();
-        strategy.setRootNode(rootNode);
+    public Tree(Node rootNode) throws ExceptionOnATree {
+        this(rootNode, new BFSTraversal());
     }
 
-    public Tree(Node rootNode, TreeTraversal strategy) {
+    public Tree(Node rootNode, TreeTraversal strategy) throws ExceptionOnATree {
         this.rootNode = rootNode;
         this.strategy = strategy;
         strategy.setRootNode(rootNode);
@@ -24,7 +26,11 @@ public class Tree implements Iterable<Node> {
 
     public void setStrategy(TreeTraversal strategy) {
         this.strategy = strategy;
-        strategy.setRootNode(rootNode);
+        try {
+            strategy.setRootNode(rootNode);
+        } catch (ExceptionOnATree exceptionOnATree) {
+            logger.error(exceptionOnATree);
+        }
     }
 
     public void setBackwardTraversal(boolean backwardTraversal) {

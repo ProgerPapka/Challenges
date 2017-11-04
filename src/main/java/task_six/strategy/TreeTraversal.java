@@ -1,6 +1,7 @@
 package task_six.strategy;
 
 import task_six.domain.Node;
+import task_six.exception.ExceptionOnATree;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,7 +18,10 @@ public abstract class TreeTraversal {
     public TreeTraversal() {
     }
 
-    public void setRootNode(Node rootNode) {
+    public void setRootNode(Node rootNode) throws ExceptionOnATree {
+        if(rootNode == null){
+            throw new ExceptionOnATree("The root of tree can't be null!!!");
+        }
         this.rootNode = rootNode;
         indexing();
         this.lastState = false;
