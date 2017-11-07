@@ -1,0 +1,5 @@
+CREATE DATABASE epam
+    WITH 
+    OWNER = epam
+    ENCODING = 'UTF8'
+    CONNECTION LIMIT = -1;
