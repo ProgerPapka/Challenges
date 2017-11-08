@@ -45,6 +45,8 @@ public class PostgresTest {
                 DataBaseUtil util = new PostgresDBUtil();
                 initDataBase = new InitDataBase(util.getConnection());
                 initDataBase.createTables();
+                PublishersDao dao = new PublishersDao(util.getConnection());
+                dao.setToBD(publishers);
                 util.closeConnection();
             } catch (DataBaseException e) {
                 logger.error(e);
@@ -53,7 +55,6 @@ public class PostgresTest {
         try {
             DataBaseUtil util = new PostgresDBUtil();
             PublishersDao dao = new PublishersDao(util.getConnection());
-            dao.setToBD(publishers);
             List<Publisher> list = dao.getFromDB();
             logger.info(list.toString());
             util.closeConnection();
