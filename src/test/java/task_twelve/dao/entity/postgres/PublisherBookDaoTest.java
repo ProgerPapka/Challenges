@@ -14,22 +14,24 @@ public class PublisherBookDaoTest {
 
     private static EntityPublisherBook publisherBook;
     private static PublisherBookDao dao;
+    private static DataBaseUtil util;
 
     @BeforeClass
     public static void init() throws DataBaseException {
-        publisherBook = new EntityPublisherBook(1,1);
-        DataBaseUtil util = new PostgresDBUtil();
-        dao = DaoFactory.getPublisherBookDao(util.getConnection());
+        publisherBook = new EntityPublisherBook(1, 1);
+        util = new PostgresDBUtil();
+        dao = DaoFactory.getPublisherBookDao();
     }
 
     @Test
     public void insertPublisherBook() throws Exception {
-        assertTrue(dao.insertPublisherBook(publisherBook));
+        assertTrue(dao.insert(publisherBook, util.getConnection()));
     }
 
     @Test
     public void selectByIdPublisher() throws Exception {
-        EntityPublisherBook p = dao.selectByIdPublisher(1).get(0);
+        EntityPublisherBook p = dao.selectByIdPublisher(1,
+                util.getConnection()).get(0);
         assertEquals(publisherBook, p);
     }
 

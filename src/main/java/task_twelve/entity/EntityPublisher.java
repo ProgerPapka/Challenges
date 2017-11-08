@@ -31,16 +31,13 @@ public class EntityPublisher {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        EntityPublisher that = (EntityPublisher) o;
+        EntityPublisher publisher = (EntityPublisher) o;
 
-        if (id != that.id) return false;
-        return name.equals(that.name);
+        return name != null ? name.equals(publisher.name) : publisher.name == null;
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + name.hashCode();
-        return result;
+        return name != null ? name.hashCode() : 0;
     }
 }

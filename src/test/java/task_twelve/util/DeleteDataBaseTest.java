@@ -8,8 +8,8 @@ public class DeleteDataBaseTest {
     @Test
     public void dropDB() throws Exception {
         DataBaseUtil util = new PostgresDBUtil();
-        DeleteDataBase deleter = new DeleteDataBase(util.getConnection());
-        deleter.dropDB();
+        DeleteDataBase deleter = new DeleteDataBase();
+        deleter.dropDB(util.getConnection());
     }
 
 }

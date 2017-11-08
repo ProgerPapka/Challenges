@@ -43,18 +43,17 @@ public class EntityBook {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        EntityBook that = (EntityBook) o;
+        EntityBook book = (EntityBook) o;
 
-        if (id != that.id) return false;
-        if (!name.equals(that.name)) return false;
-        return rDay.equals(that.rDay);
+        if (name != null ? !name.equals(book.name) : book.name != null)
+            return false;
+        return rDay != null ? rDay.equals(book.rDay) : book.rDay == null;
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + name.hashCode();
-        result = 31 * result + rDay.hashCode();
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (rDay != null ? rDay.hashCode() : 0);
         return result;
     }
 }

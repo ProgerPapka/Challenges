@@ -6,22 +6,18 @@ import task_twelve.entity.EntityAuthor;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class AuthorDao {
 
     private static Logger logger = Logger.getLogger(AuthorDao.class);
 
-    private Connection connection;
-
-    public AuthorDao(Connection connection) {
-        this.connection = connection;
-    }
-
-    public boolean insertAuthor(EntityAuthor author) {
+    public boolean insert(EntityAuthor author, Connection connection) {
+        PreparedStatement statement = null;
         try {
-            PreparedStatement statement = connection.prepareStatement(
-                    "INSERT INTO \"Author\" VALUES (?, ?, ?, ?, ?)"
+            statement = connection.prepareStatement(
+                    "INSERT INTO Author VALUES (?, ?, ?, ?, ?)"
             );
             Date bDay = Date.valueOf(author.getbDay());
             Date dDay = null;
@@ -37,13 +33,22 @@ public class AuthorDao {
         } catch (SQLException e) {
             logger.error(e);
             return false;
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    logger.error(e);
+                }
+            }
         }
     }
 
-    public EntityAuthor selectById(int id) {
+    public EntityAuthor selectById(int id, Connection connection) {
+        PreparedStatement statement = null;
         try {
-            PreparedStatement statement = connection.prepareStatement(
-                    "SELECT * FROM \"Author\" WHERE id = ?");
+            statement = connection.prepareStatement(
+                    "SELECT id, name, birth_day, death_day, sex FROM Author WHERE id = ?");
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
             String name = null;
@@ -52,8 +57,8 @@ public class AuthorDao {
             String sex = null;
             while (rs.next()) {
                 name = rs.getString("name");
-                bDay = rs.getDate("b_day");
-                dDay = rs.getDate("d_day");
+                bDay = rs.getDate("birth_day");
+                dDay = rs.getDate("death_day");
                 sex = rs.getString("sex");
             }
             LocalDate d = null;
@@ -68,20 +73,29 @@ public class AuthorDao {
         } catch (SQLException e) {
             logger.error(e);
             return null;
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    logger.error(e);
+                }
+            }
         }
     }
 
-    public List<EntityAuthor> selectByName(String name) {
+    public List<EntityAuthor> selectByName(String name, Connection connection) {
+        PreparedStatement statement = null;
         try {
-            PreparedStatement statement = connection.prepareStatement(
-                    "SELECT * FROM \"Author\" WHERE \"Author\".name = ?");
+            statement = connection.prepareStatement(
+                    "SELECT id, name, birth_day, death_day, sex FROM Author WHERE name = ?");
             statement.setString(1, name);
             ResultSet rs = statement.executeQuery();
             List<EntityAuthor> authors = new ArrayList<>();
             while (rs.next()) {
                 int id = rs.getInt("id");
-                Date bDay = rs.getDate("b_day");
-                Date dDay = rs.getDate("d_day");
+                Date bDay = rs.getDate("birth_day");
+                Date dDay = rs.getDate("death_day");
                 String sex = rs.getString("sex");
                 LocalDate d = null;
                 LocalDate b = null;
@@ -96,21 +110,30 @@ public class AuthorDao {
             return authors;
         } catch (SQLException e) {
             logger.error(e);
-            return null;
+            return Collections.emptyList();
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    logger.error(e);
+                }
+            }
         }
     }
 
-    public List<EntityAuthor> selectAll() {
+    public List<EntityAuthor> selectAll(Connection connection) {
+        PreparedStatement statement = null;
         try {
-            PreparedStatement statement = connection.prepareStatement(
-                    "SELECT * FROM \"Author\"");
+            statement = connection.prepareStatement(
+                    "SELECT id, name, birth_day, death_day, sex FROM Author");
             ResultSet rs = statement.executeQuery();
             List<EntityAuthor> authors = new ArrayList<>();
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
-                Date bDay = rs.getDate("b_day");
-                Date dDay = rs.getDate("d_day");
+                Date bDay = rs.getDate("birth_day");
+                Date dDay = rs.getDate("death_day");
                 String sex = rs.getString("sex");
                 LocalDate d = null;
                 LocalDate b = null;
@@ -125,7 +148,15 @@ public class AuthorDao {
             return authors;
         } catch (SQLException e) {
             logger.error(e);
-            return null;
+            return Collections.emptyList();
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    logger.error(e);
+                }
+            }
         }
     }
 }

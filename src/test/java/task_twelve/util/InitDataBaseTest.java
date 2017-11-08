@@ -9,24 +9,24 @@ public class InitDataBaseTest {
     @Test
     public void createUser() throws Exception {
         DataBaseUtil util = new PostgresDBUtil();
-        InitDataBase init = new InitDataBase(util.getConnection());
-        init.createUser();
+        InitDataBase init = new InitDataBase();
+        init.createUser(util.getConnection());
         util.closeConnection();
     }
 
     @Test
     public void createDataBase() throws Exception {
         DataBaseUtil util = new PostgresDBUtil();
-        InitDataBase init = new InitDataBase(util.getConnection());
-        init.createDataBase();
+        InitDataBase init = new InitDataBase();
+        init.createDataBase(util.getConnection());
         util.closeConnection();
     }
 
     @Test
     public void createTables() throws Exception {
         DataBaseUtil util = new PostgresDBUtil();
-        InitDataBase init = new InitDataBase(util.getConnection());
-        init.createTables();
+        InitDataBase init = new InitDataBase();
+        init.createTables(util.getConnection());
         util.closeConnection();
     }
 

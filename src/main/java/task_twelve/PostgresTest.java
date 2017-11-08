@@ -34,18 +34,14 @@ public class PostgresTest {
             try {
                 DataBaseUtil root = new PostgresDBUtil(
                         "src\\main\\resources\\rootpg.properties");
-                InitDataBase initDataBase = new InitDataBase(
-                        root.getConnection());
-                DeleteDataBase deleteDataBase = new DeleteDataBase(
-                        root.getConnection());
-                deleteDataBase.dropDB();
-                initDataBase.createUser();
-                initDataBase.createDataBase();
+                InitDataBase initDataBase = new InitDataBase();
+                new DeleteDataBase().dropDB(root.getConnection());
+                initDataBase.createUser(root.getConnection());
+                initDataBase.createDataBase(root.getConnection());
                 root.closeConnection();
                 DataBaseUtil util = new PostgresDBUtil();
-                initDataBase = new InitDataBase(util.getConnection());
-                initDataBase.createTables();
-                PublishersDBCache dao = new PublishersDBCache(util.getConnection());
+                initDataBase.createTables(util.getConnection());
+                PublishersDBCache dao = new PublishersDBCache(util);
                 dao.setToBD(publishers);
                 util.closeConnection();
             } catch (DataBaseException e) {
@@ -54,7 +50,7 @@ public class PostgresTest {
         }
         try {
             DataBaseUtil util = new PostgresDBUtil();
-            PublishersDBCache dao = new PublishersDBCache(util.getConnection());
+            PublishersDBCache dao = new PublishersDBCache(util);
             List<Publisher> list = dao.getFromDB();
             logger.info(list.toString());
             util.closeConnection();
@@ -70,7 +66,7 @@ public class PostgresTest {
                         Author.Sex.MALE),
                 new Author("Sue",
                         LocalDate.of(1920, 7, 11),
-                        LocalDate.of(2002, 1, 1),
+                        LocalDate.of(2002, 11, 1),
                         Author.Sex.FEMALE)
         );
         books = Arrays.asList(
@@ -79,10 +75,19 @@ public class PostgresTest {
                         Collections.singletonList(authors.get(1))),
                 new Book("Ellion",
                         LocalDate.of(2006, 11, 16),
-                        Collections.singletonList(authors.get(0)))
+                        Collections.singletonList(authors.get(0))),
+                new Book("Gideon",
+                        LocalDate.of(2002, 1, 1),
+                        Arrays.asList(authors.get(0),authors.get(1))
+                )
+
         );
         publishers = new ArrayList<>();
         publishers.add(new Publisher("World", books));
+        publishers.add(new Publisher("Quiz", Arrays.asList(
+                books.get(1),
+                books.get(0)
+                )));
     }
 
 }

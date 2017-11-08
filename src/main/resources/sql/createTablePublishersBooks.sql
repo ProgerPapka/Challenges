@@ -1,10 +1,10 @@
 CREATE TABLE Publisher_Book
 (
-    id_publisher integer NOT NULL,
-    id_book integer NOT NULL,
-    CONSTRAINT id_book_fk FOREIGN KEY (id_book)
+    publisher_id integer NOT NULL,
+    book_id integer NOT NULL,
+    CONSTRAINT book_id_fk FOREIGN KEY (book_id)
         REFERENCES Book (id),
-    CONSTRAINT id_publisher_fk FOREIGN KEY (id_publisher)
+    CONSTRAINT publisher_id_fk FOREIGN KEY (publisher_id)
         REFERENCES Publisher (id)
 );
 ALTER TABLE Publisher_Book

@@ -1,10 +1,10 @@
 CREATE TABLE Book_Author
 (
-    id_book integer NOT NULL,
-    id_author integer NOT NULL,
-    CONSTRAINT id_author_fk FOREIGN KEY (id_author)
+    book_id integer NOT NULL,
+    author_id integer NOT NULL,
+    CONSTRAINT author_id_fk FOREIGN KEY (author_id)
         REFERENCES Author (id),
-    CONSTRAINT id_book_fk FOREIGN KEY (id_book)
+    CONSTRAINT book_id_fk FOREIGN KEY (book_id)
         REFERENCES Book (id)
 );
 ALTER TABLE Book_Author

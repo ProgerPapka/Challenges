@@ -5,26 +5,21 @@ import java.sql.Connection;
 
 public class InitDataBase {
 
-    private Connection connection;
     private ScriptExecutor executor = new ScriptExecutor();
 
-    public InitDataBase(Connection connection) {
-        this.connection = connection;
-    }
-
-    public void createUser() {
+    public void createUser(Connection connection) {
         File user = new File("src\\main\\resources\\sql\\createUser.sql");
         executor.runScript(connection, user);
     }
 
-    public void createDataBase() {
+    public void createDataBase(Connection connection) {
         File fileCreate = new File(
                 "src\\main\\resources\\sql\\createDB.sql");
         executor.runScript(connection, fileCreate);
     }
 
 
-    public void createTables() {
+    public void createTables(Connection connection) {
         File fileAuthor = new File(
                 "src\\main\\resources\\sql\\createTableAuthor.sql");
         File fileBook = new File(

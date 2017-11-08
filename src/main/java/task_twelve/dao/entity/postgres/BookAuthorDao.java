@@ -5,22 +5,18 @@ import task_twelve.entity.EntityBookAuthor;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class BookAuthorDao {
 
     private static Logger logger = Logger.getLogger(BookAuthorDao.class);
 
-    private Connection connection;
-
-    public BookAuthorDao(Connection connection) {
-        this.connection = connection;
-    }
-
-    public boolean insertBookAuthor(EntityBookAuthor bookAuthor) {
+    public boolean insert(EntityBookAuthor bookAuthor, Connection connection) {
+        PreparedStatement statement = null;
         try {
-            PreparedStatement statement = connection.prepareStatement(
-                    "INSERT INTO \"Books_Authors\" VALUES (?, ?)"
+            statement = connection.prepareStatement(
+                    "INSERT INTO Book_Author VALUES (?, ?)"
             );
             statement.setInt(1, bookAuthor.getIdBook());
             statement.setInt(2, bookAuthor.getIdAuthor());
@@ -28,43 +24,69 @@ public class BookAuthorDao {
         } catch (SQLException e) {
             logger.error(e);
             return false;
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    logger.error(e);
+                }
+            }
         }
     }
 
-    public List<EntityBookAuthor> selectByIdBook(int idBook) {
+    public List<EntityBookAuthor> selectByIdBook(int idBook, Connection connection) {
+        PreparedStatement statement = null;
         try {
-            PreparedStatement statement = connection.prepareStatement(
-                    "SELECT * FROM \"Books_Authors\" WHERE id_book = ?");
+            statement = connection.prepareStatement(
+                    "SELECT book_id, author_id FROM Book_Author WHERE book_id = ?");
             statement.setInt(1, idBook);
             ResultSet rs = statement.executeQuery();
             List<EntityBookAuthor> bookAuthors = new ArrayList<>();
             while (rs.next()) {
-                int idAuthor = rs.getInt("id_author");
+                int idAuthor = rs.getInt("author_id");
                 bookAuthors.add(new EntityBookAuthor(idBook, idAuthor));
             }
             return bookAuthors;
         } catch (SQLException e) {
             logger.error(e);
-            return null;
+            return Collections.emptyList();
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    logger.error(e);
+                }
+            }
         }
     }
 
 
-    public List<EntityBookAuthor> selectAll() {
+    public List<EntityBookAuthor> selectAll(Connection connection) {
+        PreparedStatement statement = null;
         try {
-            PreparedStatement statement = connection.prepareStatement(
-                    "SELECT * FROM \"Books_Authors\"");
+            statement = connection.prepareStatement(
+                    "SELECT book_id, author_id FROM Book_Author");
             ResultSet rs = statement.executeQuery();
             List<EntityBookAuthor> bookAuthors = new ArrayList<>();
             while (rs.next()) {
-                int idAuthor = rs.getInt("id_author");
-                int idBook = rs.getInt("id_book");
+                int idAuthor = rs.getInt("author_id");
+                int idBook = rs.getInt("book_id");
                 bookAuthors.add(new EntityBookAuthor(idBook, idAuthor));
             }
             return bookAuthors;
         } catch (SQLException e) {
             logger.error(e);
-            return null;
+            return Collections.emptyList();
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    logger.error(e);
+                }
+            }
         }
     }
 }

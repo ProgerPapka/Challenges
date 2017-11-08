@@ -16,11 +16,12 @@ public class BookDaoTest {
 
     private static BookDao bookDao;
     private static EntityBook book;
+    private static DataBaseUtil util;
 
     @BeforeClass
     public static void init() throws DataBaseException {
-        DataBaseUtil util = new PostgresDBUtil();
-        bookDao = DaoFactory.getBookDao(util.getConnection());
+        util = new PostgresDBUtil();
+        bookDao = DaoFactory.getBookDao();
         book = new EntityBook(
                 1, "HeartStone", LocalDate.now()
         );
@@ -28,18 +29,19 @@ public class BookDaoTest {
 
     @Test
     public void insertBook() throws Exception {
-        assertTrue(bookDao.insertBook(book));
+        assertTrue(bookDao.insert(book, util.getConnection()));
     }
 
     @Test
     public void selectBookById() throws Exception {
-        EntityBook b = bookDao.selectBookById(1);
+        EntityBook b = bookDao.selectById(1, util.getConnection());
         assertEquals(book, b);
     }
 
     @Test
     public void selectBookByName() throws Exception {
-        EntityBook b = bookDao.selectBookByName("HeartStone").get(0);
+        EntityBook b = bookDao.selectByName("HeartStone",
+                util.getConnection()).get(0);
         assertEquals(book, b);
     }
 

@@ -5,22 +5,18 @@ import task_twelve.entity.EntityPublisher;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class PublisherDao {
 
     private static Logger logger = Logger.getLogger(PublisherDao.class);
 
-    private Connection connection;
-
-    public PublisherDao(Connection connection) {
-        this.connection = connection;
-    }
-
-    public boolean insertPublisher(EntityPublisher publisher) {
+    public boolean insert(EntityPublisher publisher, Connection connection) {
+        PreparedStatement statement = null;
         try {
-            PreparedStatement statement = connection.prepareStatement(
-                    "INSERT INTO \"Publisher\" VALUES (?, ?)"
+            statement = connection.prepareStatement(
+                    "INSERT INTO Publisher VALUES (?, ?)"
             );
             statement.setInt(1, publisher.getId());
             statement.setString(2, publisher.getName());
@@ -28,13 +24,22 @@ public class PublisherDao {
         } catch (SQLException e) {
             logger.error(e);
             return false;
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    logger.error(e);
+                }
+            }
         }
     }
 
-    public EntityPublisher selectPublisherById(int id) {
+    public EntityPublisher selectById(int id, Connection connection) {
+        PreparedStatement statement = null;
         try {
-            PreparedStatement statement = connection.prepareStatement(
-                    "SELECT * FROM \"Publisher\" WHERE id = ?");
+            statement = connection.prepareStatement(
+                    "SELECT id, name FROM Publisher WHERE id = ?");
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
             String name = null;
@@ -45,13 +50,22 @@ public class PublisherDao {
         } catch (SQLException e) {
             logger.error(e);
             return null;
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    logger.error(e);
+                }
+            }
         }
     }
 
-    public List<EntityPublisher> selectPublisherByName(String name) {
+    public List<EntityPublisher> selectByName(String name, Connection connection) {
+        PreparedStatement statement = null;
         try {
-            PreparedStatement statement = connection.prepareStatement(
-                    "SELECT * FROM \"Publisher\" WHERE name = ?");
+            statement = connection.prepareStatement(
+                    "SELECT id, name FROM Publisher WHERE name = ?");
             statement.setString(1, name);
             ResultSet rs = statement.executeQuery();
             List<EntityPublisher> publishers = new ArrayList<>();
@@ -62,14 +76,23 @@ public class PublisherDao {
             return publishers;
         } catch (SQLException e) {
             logger.error(e);
-            return null;
+            return Collections.emptyList();
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    logger.error(e);
+                }
+            }
         }
     }
 
-    public List<EntityPublisher> selectAll() {
+    public List<EntityPublisher> selectAll(Connection connection) {
+        PreparedStatement statement = null;
         try {
-            PreparedStatement statement = connection.prepareStatement(
-                    "SELECT * FROM \"Publisher\"");
+            statement = connection.prepareStatement(
+                    "SELECT id, name FROM Publisher");
             ResultSet rs = statement.executeQuery();
             List<EntityPublisher> publishers = new ArrayList<>();
             while (rs.next()) {
@@ -80,7 +103,15 @@ public class PublisherDao {
             return publishers;
         } catch (SQLException e) {
             logger.error(e);
-            return null;
+            return Collections.emptyList();
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    logger.error(e);
+                }
+            }
         }
     }
 }

@@ -68,21 +68,21 @@ public class EntityAuthor {
 
         EntityAuthor author = (EntityAuthor) o;
 
-        if (id != author.id) return false;
-        if (!name.equals(author.name)) return false;
-        if (!bDay.equals(author.bDay)) return false;
+        if (name != null ? !name.equals(author.name) : author.name != null)
+            return false;
+        if (bDay != null ? !bDay.equals(author.bDay) : author.bDay != null)
+            return false;
         if (dDay != null ? !dDay.equals(author.dDay) : author.dDay != null)
             return false;
-        return sex.equals(author.sex);
+        return sex != null ? sex.equals(author.sex) : author.sex == null;
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + name.hashCode();
-        result = 31 * result + bDay.hashCode();
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (bDay != null ? bDay.hashCode() : 0);
         result = 31 * result + (dDay != null ? dDay.hashCode() : 0);
-        result = 31 * result + sex.hashCode();
+        result = 31 * result + (sex != null ? sex.hashCode() : 0);
         return result;
     }
 }

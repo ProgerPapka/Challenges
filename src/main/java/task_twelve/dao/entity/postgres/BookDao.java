@@ -6,22 +6,18 @@ import task_twelve.entity.EntityBook;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class BookDao {
 
     private static Logger logger = Logger.getLogger(BookDao.class);
 
-    private Connection connection;
-
-    public BookDao(Connection connection) {
-        this.connection = connection;
-    }
-
-    public boolean insertBook(EntityBook book) {
+    public boolean insert(EntityBook book, Connection connection) {
+        PreparedStatement statement = null;
         try {
-            PreparedStatement statement = connection.prepareStatement(
-                    "INSERT INTO \"Book\" VALUES (?, ?, ?)"
+            statement = connection.prepareStatement(
+                    "INSERT INTO Book VALUES (?, ?, ?)"
             );
             Date rDay = Date.valueOf(book.getrDay());
             statement.setInt(1, book.getId());
@@ -31,20 +27,29 @@ public class BookDao {
         } catch (SQLException e) {
             logger.error(e);
             return false;
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    logger.error(e);
+                }
+            }
         }
     }
 
-    public EntityBook selectBookById(int id) {
+    public EntityBook selectById(int id, Connection connection) {
+        PreparedStatement statement = null;
         try {
-            PreparedStatement statement = connection.prepareStatement(
-                    "SELECT * FROM \"Book\" WHERE id = ?");
+            statement = connection.prepareStatement(
+                    "SELECT id, name, release_day FROM Book WHERE id = ?");
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
             String name = null;
             Date rDay = null;
             while (rs.next()) {
                 name = rs.getString("name");
-                rDay = rs.getDate("r_day");
+                rDay = rs.getDate("release_day");
             }
             LocalDate r = null;
             if (rDay != null) {
@@ -54,19 +59,28 @@ public class BookDao {
         } catch (SQLException e) {
             logger.error(e);
             return null;
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    logger.error(e);
+                }
+            }
         }
     }
 
-    public List<EntityBook> selectBookByName(String name) {
+    public List<EntityBook> selectByName(String name, Connection connection) {
+        PreparedStatement statement = null;
         try {
-            PreparedStatement statement = connection.prepareStatement(
-                    "SELECT * FROM \"Book\" WHERE name = ?");
+            statement = connection.prepareStatement(
+                    "SELECT id, name, release_day FROM Book WHERE name = ?");
             statement.setString(1, name);
             ResultSet rs = statement.executeQuery();
             List<EntityBook> books = new ArrayList<>();
             while (rs.next()) {
                 int id = rs.getInt("id");
-                Date rDay = rs.getDate("r_day");
+                Date rDay = rs.getDate("release_day");
                 LocalDate r = null;
                 if (rDay != null) {
                     r = rDay.toLocalDate();
@@ -76,20 +90,29 @@ public class BookDao {
             return books;
         } catch (SQLException e) {
             logger.error(e);
-            return null;
+            return Collections.emptyList();
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    logger.error(e);
+                }
+            }
         }
     }
 
-    public List<EntityBook> selectAll() {
+    public List<EntityBook> selectAll(Connection connection) {
+        PreparedStatement statement = null;
         try {
-            PreparedStatement statement = connection.prepareStatement(
-                    "SELECT * FROM \"Book\"");
+            statement = connection.prepareStatement(
+                    "SELECT id, name, release_day FROM Book");
             ResultSet rs = statement.executeQuery();
             List<EntityBook> books = new ArrayList<>();
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
-                Date rDay = rs.getDate("r_day");
+                Date rDay = rs.getDate("release_day");
                 LocalDate r = null;
                 if (rDay != null) {
                     r = rDay.toLocalDate();
@@ -99,7 +122,15 @@ public class BookDao {
             return books;
         } catch (SQLException e) {
             logger.error(e);
-            return null;
+            return Collections.emptyList();
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    logger.error(e);
+                }
+            }
         }
     }
 }

@@ -25,13 +25,15 @@ public class Book implements Serializable {
             if (a < 0) {
                 return -1;
             }
-            int b = Period.between(o1.getDateOfDeath(), o2.getDateOfDeath())
-                    .getDays();
-            if (b > 0) {
-                return 1;
-            }
-            if (b < 0) {
-                return -1;
+            if (o1.isDead() && o2.isDead()) {
+                int b = Period.between(o1.getDateOfDeath(), o2.getDateOfDeath())
+                        .getDays();
+                if (b > 0) {
+                    return 1;
+                }
+                if (b < 0) {
+                    return -1;
+                }
             }
             return o1.getName().compareTo(o2.getName());
         });

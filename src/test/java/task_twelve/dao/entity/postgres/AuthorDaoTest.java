@@ -17,11 +17,12 @@ public class AuthorDaoTest {
 
     private static AuthorDao authorDao;
     private static EntityAuthor author;
+    private static DataBaseUtil util;
 
     @BeforeClass
     public static void init() throws DataBaseException {
-        DataBaseUtil util = new PostgresDBUtil();
-        authorDao = DaoFactory.getAuthorDao(util.getConnection());
+        util = new PostgresDBUtil();
+        authorDao = DaoFactory.getAuthorDao();
         author = new EntityAuthor(
                 1, "Ivan", LocalDate.of(1995, 5, 6),
                 null, Author.Sex.MALE.name()
@@ -30,19 +31,20 @@ public class AuthorDaoTest {
 
     @Test
     public void insertAuthor() throws Exception {
-        assertTrue(authorDao.insertAuthor(author));
+        assertTrue(authorDao.insert(author, util.getConnection()));
     }
 
     @Test
     public void selectById() throws Exception {
-        EntityAuthor a = authorDao.selectById(1);
+        EntityAuthor a = authorDao.selectById(1, util.getConnection());
         assertEquals(author, a);
     }
 
     @Test
     public void selectByName() throws Exception {
-        EntityAuthor a = authorDao.selectByName("Ivan").get(0);
-        assertEquals(author ,a);
+        EntityAuthor a = authorDao.selectByName("Ivan",
+                util.getConnection()).get(0);
+        assertEquals(author, a);
     }
 
 }
