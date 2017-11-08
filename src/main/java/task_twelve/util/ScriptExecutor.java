@@ -14,23 +14,40 @@ public class ScriptExecutor {
 
     private static Logger logger = Logger.getLogger(ScriptExecutor.class);
 
-    public void runScript(Connection connection, File file){
-        ScriptRunner runner = new ScriptRunner(connection);
+    public void runScript(Connection connection, File file) {
+        Statement stm = null;
         try {
             String sql = new String(Files.readAllBytes(Paths.get(file.getPath())));
-            Statement stm = connection.createStatement();
+            stm = connection.createStatement();
             stm.execute(sql);
         } catch (IOException | SQLException e) {
             logger.error(e);
+        } finally {
+            if (stm != null) {
+                try {
+                    stm.close();
+                } catch (SQLException e) {
+                    logger.error(e);
+                }
+            }
         }
     }
 
-    public void runScript(Connection connection, String sql){
+    public void runScript(Connection connection, String sql) {
+        Statement stm = null;
         try {
-            Statement stm = connection.createStatement();
+            stm = connection.createStatement();
             stm.execute(sql);
         } catch (SQLException e) {
             logger.error(e);
+        } finally {
+            if (stm != null) {
+                try {
+                    stm.close();
+                } catch (SQLException e) {
+                    logger.error(e);
+                }
+            }
         }
     }
 
