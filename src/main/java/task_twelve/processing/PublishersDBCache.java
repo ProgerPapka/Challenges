@@ -10,7 +10,7 @@ import task_twelve.wrapper.EntityWrapper;
 import java.sql.Connection;
 import java.util.List;
 
-public class PublishersDao {
+public class PublishersDBCache {
 
     private Connection connection;
     private EntityTransformer transformer;
@@ -20,11 +20,11 @@ public class PublishersDao {
     private BookAuthorDao bookAuthorDao;
     private PublisherBookDao publisherBookDao;
 
-    public PublishersDao(Connection connection) throws DataBaseException {
+    public PublishersDBCache(Connection connection) throws DataBaseException {
         this(connection, new EntityTransformer(connection));
     }
 
-    public PublishersDao(Connection connection, EntityTransformer transformer) {
+    public PublishersDBCache(Connection connection, EntityTransformer transformer) {
         this.connection = connection;
         this.transformer = transformer;
         this.authorDao = new AuthorDao(connection);

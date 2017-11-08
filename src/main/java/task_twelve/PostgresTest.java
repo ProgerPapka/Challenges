@@ -4,7 +4,7 @@ import org.apache.log4j.Logger;
 import task_four.second.domain.Author;
 import task_four.second.domain.Book;
 import task_four.second.domain.Publisher;
-import task_twelve.processing.PublishersDao;
+import task_twelve.processing.PublishersDBCache;
 import task_twelve.exception.DataBaseException;
 import task_twelve.util.DataBaseUtil;
 import task_twelve.util.DeleteDataBase;
@@ -45,7 +45,7 @@ public class PostgresTest {
                 DataBaseUtil util = new PostgresDBUtil();
                 initDataBase = new InitDataBase(util.getConnection());
                 initDataBase.createTables();
-                PublishersDao dao = new PublishersDao(util.getConnection());
+                PublishersDBCache dao = new PublishersDBCache(util.getConnection());
                 dao.setToBD(publishers);
                 util.closeConnection();
             } catch (DataBaseException e) {
@@ -54,7 +54,7 @@ public class PostgresTest {
         }
         try {
             DataBaseUtil util = new PostgresDBUtil();
-            PublishersDao dao = new PublishersDao(util.getConnection());
+            PublishersDBCache dao = new PublishersDBCache(util.getConnection());
             List<Publisher> list = dao.getFromDB();
             logger.info(list.toString());
             util.closeConnection();
