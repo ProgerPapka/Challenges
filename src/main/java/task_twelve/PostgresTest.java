@@ -4,7 +4,7 @@ import org.apache.log4j.Logger;
 import task_four.second.domain.Author;
 import task_four.second.domain.Book;
 import task_four.second.domain.Publisher;
-import task_twelve.dao.object.PublishersDao;
+import task_twelve.processing.PublishersDao;
 import task_twelve.exception.DataBaseException;
 import task_twelve.util.DataBaseUtil;
 import task_twelve.util.DeleteDataBase;

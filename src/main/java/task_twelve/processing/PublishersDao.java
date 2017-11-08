@@ -1,4 +1,4 @@
-package task_twelve.dao.object;
+package task_twelve.processing;
 
 import task_four.second.domain.Publisher;
 import task_twelve.dao.entity.postgres.*;
@@ -8,7 +8,6 @@ import task_twelve.transformation.EntityTransformer;
 import task_twelve.wrapper.EntityWrapper;
 
 import java.sql.Connection;
-import java.util.ArrayList;
 import java.util.List;
 
 public class PublishersDao {
