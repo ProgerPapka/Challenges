@@ -1,16 +1,11 @@
-CREATE TABLE public."Author"
+CREATE TABLE Author
 (
     id integer NOT NULL,
-    name character varying(200) COLLATE pg_catalog."default" NOT NULL,
-    b_day date NOT NULL,
-    d_day date,
-    sex character varying(8) COLLATE pg_catalog."default" NOT NULL,
-    CONSTRAINT "Author_pkey" PRIMARY KEY (id)
-)
-WITH (
-    OIDS = FALSE
-)
-TABLESPACE pg_default;
-
-ALTER TABLE public."Author"
+    name character varying(200) NOT NULL,
+    birth_day date NOT NULL,
+    death_day date,
+    sex character varying(8) NOT NULL,
+    CONSTRAINT author_pkey PRIMARY KEY (id)
+);
+ALTER TABLE Author
     OWNER to epam;

@@ -1,14 +1,9 @@
-CREATE TABLE public."Book"
+CREATE TABLE Book
 (
     id integer NOT NULL,
-    name character varying(200) COLLATE pg_catalog."default" NOT NULL,
-    r_day date NOT NULL,
-    CONSTRAINT "Book_pkey" PRIMARY KEY (id)
-)
-WITH (
-    OIDS = FALSE
-)
-TABLESPACE pg_default;
-
-ALTER TABLE public."Book"
+    name character varying(200) NOT NULL,
+    release_day date NOT NULL,
+    CONSTRAINT book_pkey PRIMARY KEY (id)
+);
+ALTER TABLE Book
     OWNER to epam;

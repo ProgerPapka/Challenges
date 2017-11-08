@@ -1,20 +1,11 @@
-CREATE TABLE public."Publishers_Books"
+CREATE TABLE Publisher_Book
 (
     id_publisher integer NOT NULL,
     id_book integer NOT NULL,
     CONSTRAINT id_book_fk FOREIGN KEY (id_book)
-        REFERENCES public."Book" (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION,
+        REFERENCES Book (id),
     CONSTRAINT id_publisher_fk FOREIGN KEY (id_publisher)
-        REFERENCES public."Publisher" (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
-)
-WITH (
-    OIDS = FALSE
-)
-TABLESPACE pg_default;
-
-ALTER TABLE public."Publishers_Books"
+        REFERENCES Publisher (id)
+);
+ALTER TABLE Publisher_Book
     OWNER to epam;
