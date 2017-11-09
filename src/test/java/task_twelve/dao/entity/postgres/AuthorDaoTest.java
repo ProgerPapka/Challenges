@@ -3,9 +3,10 @@ package task_twelve.dao.entity.postgres;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import task_four.second.domain.Author;
+import task_twelve.dao.entity.AuthorDao;
 import task_twelve.entity.EntityAuthor;
 import task_twelve.exception.DataBaseException;
-import task_twelve.factory.DaoFactory;
+import task_twelve.factory.PostgresDaoFactory;
 import task_twelve.util.DataBaseUtil;
 import task_twelve.util.PostgresDBUtil;
 
@@ -22,7 +23,7 @@ public class AuthorDaoTest {
     @BeforeClass
     public static void init() throws DataBaseException {
         util = new PostgresDBUtil();
-        authorDao = DaoFactory.getAuthorDao();
+        authorDao = PostgresDaoFactory.getAuthorDao();
         author = new EntityAuthor(
                 1, "Ivan", LocalDate.of(1995, 5, 6),
                 null, Author.Sex.MALE.name()

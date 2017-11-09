@@ -2,9 +2,10 @@ package task_twelve.dao.entity.postgres;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+import task_twelve.dao.entity.PublisherDao;
 import task_twelve.entity.EntityPublisher;
 import task_twelve.exception.DataBaseException;
-import task_twelve.factory.DaoFactory;
+import task_twelve.factory.PostgresDaoFactory;
 import task_twelve.util.DataBaseUtil;
 import task_twelve.util.PostgresDBUtil;
 
@@ -19,7 +20,7 @@ public class PublisherDaoTest {
     @BeforeClass
     public static void init() throws DataBaseException {
         util = new PostgresDBUtil();
-        dao = DaoFactory.getPublisherDao();
+        dao = PostgresDaoFactory.getPublisherDao();
         publisher = new EntityPublisher(
                 1, "Gideon"
         );

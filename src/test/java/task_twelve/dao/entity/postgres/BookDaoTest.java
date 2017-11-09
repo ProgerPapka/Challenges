@@ -2,9 +2,10 @@ package task_twelve.dao.entity.postgres;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+import task_twelve.dao.entity.BookDao;
 import task_twelve.entity.EntityBook;
 import task_twelve.exception.DataBaseException;
-import task_twelve.factory.DaoFactory;
+import task_twelve.factory.PostgresDaoFactory;
 import task_twelve.util.DataBaseUtil;
 import task_twelve.util.PostgresDBUtil;
 
@@ -21,7 +22,7 @@ public class BookDaoTest {
     @BeforeClass
     public static void init() throws DataBaseException {
         util = new PostgresDBUtil();
-        bookDao = DaoFactory.getBookDao();
+        bookDao = PostgresDaoFactory.getBookDao();
         book = new EntityBook(
                 1, "HeartStone", LocalDate.now()
         );

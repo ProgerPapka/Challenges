@@ -1,26 +1,27 @@
 package task_twelve.factory;
 
+import task_twelve.dao.entity.*;
 import task_twelve.dao.entity.postgres.*;
 
-public class DaoFactory {
+public class PostgresDaoFactory {
 
     public static AuthorDao getAuthorDao() {
-        return new AuthorDao();
+        return new ImplAuthorDao();
     }
 
     public static BookDao getBookDao() {
-        return new BookDao();
+        return new ImplBookDao();
     }
 
     public static PublisherDao getPublisherDao() {
-        return new PublisherDao();
+        return new ImplPublisherDao();
     }
 
     public static PublisherBookDao getPublisherBookDao( ) {
-        return new PublisherBookDao();
+        return new ImplPublisherBookDao();
     }
 
     public static BookAuthorDao getBookAuthorDao( ) {
-        return new BookAuthorDao();
+        return new ImplBookAuthorDao();
     }
 }

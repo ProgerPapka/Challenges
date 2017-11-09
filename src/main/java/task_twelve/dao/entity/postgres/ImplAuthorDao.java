@@ -1,6 +1,7 @@
 package task_twelve.dao.entity.postgres;
 
 import org.apache.log4j.Logger;
+import task_twelve.dao.entity.AuthorDao;
 import task_twelve.entity.EntityAuthor;
 
 import java.sql.*;
@@ -9,10 +10,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class AuthorDao {
+public class ImplAuthorDao implements AuthorDao{
 
-    private static Logger logger = Logger.getLogger(AuthorDao.class);
+    private static Logger logger = Logger.getLogger(ImplAuthorDao.class);
 
+    @Override
     public boolean insert(EntityAuthor author, Connection connection) {
         PreparedStatement statement = null;
         try {
@@ -44,6 +46,7 @@ public class AuthorDao {
         }
     }
 
+    @Override
     public EntityAuthor selectById(int id, Connection connection) {
         PreparedStatement statement = null;
         try {
@@ -84,6 +87,7 @@ public class AuthorDao {
         }
     }
 
+    @Override
     public List<EntityAuthor> selectByName(String name, Connection connection) {
         PreparedStatement statement = null;
         try {
@@ -122,6 +126,7 @@ public class AuthorDao {
         }
     }
 
+    @Override
     public List<EntityAuthor> selectAll(Connection connection) {
         PreparedStatement statement = null;
         try {

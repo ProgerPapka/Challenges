@@ -2,13 +2,12 @@ package task_twelve.dao.entity.postgres;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+import task_twelve.dao.entity.BookAuthorDao;
 import task_twelve.entity.EntityBookAuthor;
 import task_twelve.exception.DataBaseException;
-import task_twelve.factory.DaoFactory;
+import task_twelve.factory.PostgresDaoFactory;
 import task_twelve.util.DataBaseUtil;
 import task_twelve.util.PostgresDBUtil;
-
-import java.sql.Connection;
 
 import static org.junit.Assert.*;
 
@@ -21,7 +20,7 @@ public class BookAuthorDaoTest {
     @BeforeClass
     public static void init() throws DataBaseException {
         util = new PostgresDBUtil();
-        dao = DaoFactory.getBookAuthorDao();
+        dao = PostgresDaoFactory.getBookAuthorDao();
         bookAuthor = new EntityBookAuthor(1, 1);
     }
 

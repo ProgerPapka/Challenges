@@ -3,9 +3,11 @@ package task_twelve.processing;
 import task_four.second.domain.Author;
 import task_four.second.domain.Book;
 import task_four.second.domain.Publisher;
+import task_twelve.dao.entity.*;
 import task_twelve.dao.entity.postgres.*;
 import task_twelve.entity.*;
 import task_twelve.exception.DataBaseException;
+import task_twelve.factory.PostgresDaoFactory;
 import task_twelve.util.DataBaseUtil;
 import task_twelve.util.PostgresDBUtil;
 
@@ -31,11 +33,11 @@ public class PublishersDBCache {
     }
 
     public PublishersDBCache(DataBaseUtil util) {
-        this.authorDao = new AuthorDao();
-        this.bookDao = new BookDao();
-        this.publisherDao = new PublisherDao();
-        this.bookAuthorDao = new BookAuthorDao();
-        this.publisherBookDao = new PublisherBookDao();
+        this.authorDao = PostgresDaoFactory.getAuthorDao();
+        this.bookDao = PostgresDaoFactory.getBookDao();
+        this.publisherDao = PostgresDaoFactory.getPublisherDao();
+        this.bookAuthorDao = PostgresDaoFactory.getBookAuthorDao();
+        this.publisherBookDao = PostgresDaoFactory.getPublisherBookDao();
         this.util = util;
     }
 
