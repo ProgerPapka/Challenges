@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 public class ConverterToJson {
 
@@ -26,6 +27,11 @@ public class ConverterToJson {
 
     public boolean convertPublisherToJSON(Publisher publisher, File file) {
         return writeObject(publisher, file);
+    }
+
+    public boolean convertPublishersToJSON(List<Publisher> publishers,
+                                           File file) {
+        return writeObject(publishers, file);
     }
 
     private boolean writeObject(Object o, File file) {
