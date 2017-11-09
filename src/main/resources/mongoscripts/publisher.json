@@ -1,0 +1,108 @@
+{
+  "name" : "Penguin",
+  "publishedBooks" : [ {
+    "name" : "Heartbreaker",
+    "releaseDate" : {
+      "year" : 2017,
+      "month" : "OCTOBER",
+      "era" : "CE",
+      "dayOfMonth" : 29,
+      "dayOfWeek" : "SUNDAY",
+      "dayOfYear" : 302,
+      "leapYear" : false,
+      "monthValue" : 10,
+      "chronology" : {
+        "id" : "ISO",
+        "calendarType" : "iso8601"
+      }
+    },
+    "authors" : [ {
+      "name" : "Eldar",
+      "dateOfBirth" : {
+        "year" : 1995,
+        "month" : "AUGUST",
+        "era" : "CE",
+        "dayOfMonth" : 12,
+        "dayOfWeek" : "SATURDAY",
+        "dayOfYear" : 224,
+        "leapYear" : false,
+        "monthValue" : 8,
+        "chronology" : {
+          "id" : "ISO",
+          "calendarType" : "iso8601"
+        }
+      },
+      "dateOfDeath" : null,
+      "sex" : "MALE",
+      "dead" : false
+    }, {
+      "name" : "Irina",
+      "dateOfBirth" : {
+        "year" : 1994,
+        "month" : "MAY",
+        "era" : "CE",
+        "dayOfMonth" : 19,
+        "dayOfWeek" : "THURSDAY",
+        "dayOfYear" : 139,
+        "leapYear" : false,
+        "monthValue" : 5,
+        "chronology" : {
+          "id" : "ISO",
+          "calendarType" : "iso8601"
+        }
+      },
+      "dateOfDeath" : null,
+      "sex" : "FEMALE",
+      "dead" : false
+    } ]
+  }, {
+    "name" : "Shantaram",
+    "releaseDate" : {
+      "year" : 2010,
+      "month" : "FEBRUARY",
+      "era" : "CE",
+      "dayOfMonth" : 28,
+      "dayOfWeek" : "SUNDAY",
+      "dayOfYear" : 59,
+      "leapYear" : false,
+      "monthValue" : 2,
+      "chronology" : {
+        "id" : "ISO",
+        "calendarType" : "iso8601"
+      }
+    },
+    "authors" : [ {
+      "name" : "Henry",
+      "dateOfBirth" : {
+        "year" : 1925,
+        "month" : "APRIL",
+        "era" : "CE",
+        "dayOfMonth" : 15,
+        "dayOfWeek" : "WEDNESDAY",
+        "dayOfYear" : 105,
+        "leapYear" : false,
+        "monthValue" : 4,
+        "chronology" : {
+          "id" : "ISO",
+          "calendarType" : "iso8601"
+        }
+      },
+      "dateOfDeath" : {
+        "year" : 1986,
+        "month" : "JULY",
+        "era" : "CE",
+        "dayOfMonth" : 11,
+        "dayOfWeek" : "FRIDAY",
+        "dayOfYear" : 192,
+        "leapYear" : false,
+        "monthValue" : 7,
+        "chronology" : {
+          "id" : "ISO",
+          "calendarType" : "iso8601"
+        }
+      },
+      "sex" : "MALE",
+      "dead" : true
+    } ]
+  } ]
+}
